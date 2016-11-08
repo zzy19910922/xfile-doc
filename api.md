@@ -388,7 +388,7 @@ targets |list |required | | 用户名列表
 
 argument |type |need |value |description
 :----- |:----- |:----- |:----- |:----
-action |string |required | manager | member | 操作某个群成员成为管理员，或某个群管理员成为群成员
+action |string |required | "manager", "member" | 操作某个群成员成为管理员，或某个群管理员成为群成员
 
 状态码 200
 
@@ -1297,3 +1297,4 @@ group_id |int |option | |被分享的分组,share_type=group, all时必填
     DELETE /v1/shared-links/?t=939ac61687
 
 状态码 204
+
