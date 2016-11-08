@@ -330,7 +330,7 @@ target |string |required | | 用户名
 
 argument |type |need |value |description
 :----- |:----- |:----- |:----- |:----
-targets |string |required | | 用户名列表
+targets |list |required | | 用户名列表
 
 状态码 200
 
@@ -815,6 +815,7 @@ action |string |required | manager | member | 操作某个群成员成为管理�
 
 
 参数
+
 argument |type |need |value |description
 :----- |:----- |:----- |:----- |:----
 file |string |required | |文件标识
