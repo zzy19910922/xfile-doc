@@ -282,13 +282,13 @@ target |string |required | | 把组转让给的用户名
 
     [
         {
-            "id": 1
+            "id": 1,
             "group_id": 89,
             "username": "test_group",
             "is_staff": 0
         },
         {
-            "id": 2
+            "id": 2,
             "group_id": 89,
             "username": "joker",
             "is_staff": 1
@@ -319,6 +319,45 @@ target |string |required | | 用户名
         "is_staff": 0
     }
 
+
+### 批量添加群组成员
+
+请求
+
+    POST /v1/groups/{id}/members/batch/
+
+参数
+
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+targets |string |required | | 用户名列表
+
+状态码 200
+
+响应
+
+    {
+        "failed": [
+            {
+                "username": "sss",
+                "error": "User sss is not exist."
+            }
+        ],
+        "success": [
+            {
+                "id": 4,
+                "username": "joker",
+                "group_id": "78",
+                "is_staff": 0
+            },
+            {
+                "id": 6,
+                "username": "other",
+                "group_id": "78",
+                "is_staff": 0
+            }
+        ]
+    }
 
 
 ### 群组成员详情
