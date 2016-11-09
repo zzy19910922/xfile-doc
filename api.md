@@ -10,9 +10,11 @@
 
 参数
 
-    username
-    
-    password
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+username |string |required | |用户名
+password |string |required | |密码
+
 
 响应
 
@@ -28,11 +30,11 @@
 
 参数
 
-    username
-
-    password
-
-    email
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+username |string |required | |用户名
+password |string |required | |密码
+email |string |required | |邮箱
 
 状态码 201
 
@@ -55,23 +57,28 @@
 
     GET /v1/accounts/
 
-查询参数
+参数
 
-    start， limit
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+skip |integer |optional | |起始数
+limit |integer |optional | |终止数
 
 状态码 200
 
 响应
 
-    [ {
-        "id": 2,
-        "username": "user",
-        "email": "user@mail.com",
-        "is_active": true,
-        "usage": 0,
-        "total": 107374182400,
-        "ctime": 1356061187741686,
-    }]
+    [
+        {
+            "id": 2,
+            "username": "user",
+            "email": "user@mail.com",
+            "is_active": true,
+            "usage": 0,
+            "total": 107374182400,
+            "ctime": 1356061187741686,
+        }
+    ]
 
 
 ### 账号详情
@@ -101,9 +108,14 @@
 
     PUT /v1/accounts/{id}/
 
-可选参数
+参数
 
-    password, email
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+password |string |optional | |密码,需要用户登录
+email |string |optional | |邮箱,需要用户登录
+is_staff |boolean |optional | |权限,需要管理员登录才可以修改
+
 
 状态码 200
 
@@ -374,7 +386,8 @@ targets |list |required | | 用户名列表
     {
         "id": 2,
         "name": "foo",
-        "email": "foo@foo.com"
+        "group_id": 78
+        "is_staff": 0
     }
 
 
@@ -1153,7 +1166,13 @@ msg_type |string |option |"share_repo", "share_dir" |消息类型
 
 参数
 
-    repo_id, share_type, user, group_id, permission
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+repo_id |string |required | |资源库id
+share_type |string |required |personal, group, public |
+users |list |option |["username"] |被分享用户名列表,当share_type=personal时,必填
+group_id |Integer |option | |被分享组id,当share_type=group,必填
+permission |string |required |r, rw |权限
 
 状态码 200
 
@@ -1297,4 +1316,3 @@ group_id |int |option | |被分享的分组,share_type=group, all时必填
     DELETE /v1/shared-links/?t=939ac61687
 
 状态码 204
-
