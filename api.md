@@ -187,7 +187,9 @@ email |string |required | |邮箱
 
 参数
 
-    group_name
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+group_name |string |required | |组名
 
 状态码 201
 
@@ -530,8 +532,11 @@ action |string |required | "manager", "member" | 操作某个群成员成为管�
 
 参数
 
-    name, desc, password
-
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+name |string |required | | 资源库名字
+desc |string |optional | |
+password |string |optional |  |资源库密码
 
 状态码 200
 
@@ -567,7 +572,10 @@ action |string |required | "manager", "member" | 操作某个群成员成为管�
 
 参数
 
-    name, desc
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+name |string |required | | 资源库名字
+desc |string |optional | |
 
 状态码 200
 
@@ -597,7 +605,7 @@ action |string |required | "manager", "member" | 操作某个群成员成为管�
     
     owner
 
-### 解密库
+### 加密库
 
 请求
 
@@ -606,9 +614,10 @@ action |string |required | "manager", "member" | 操作某个群成员成为管�
 
 参数
 
-    action = setpassword
-    
-    password
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+action |string |required |setpassword | 操作
+password |string |required |  |资源库密码
 
 状态码 200
 
@@ -720,7 +729,11 @@ action |string |required | "manager", "member" | 操作某个群成员成为管�
 
 查询参数
 
-    p, t(=f|d), recursive
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+p |string |optional |default:/ | 路径
+t |string |optional |f or d |类型,f表示只列出文件，d表示列出目录,不填列出文件跟目录集合
+recursive |string |optional |1 or 0 |递归,1表示递归的列出该路径下所有文件，目录;0表示相反。
 
 状态码 200
 
@@ -746,7 +759,9 @@ action |string |required | "manager", "member" | 操作某个群成员成为管�
 
 查询参数：
 
-    reloaddir
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+reloaddir |string |optional | |表示创建后，需要把同层目录列表返回
 
 状态码 200
 
@@ -759,9 +774,10 @@ action |string |required | "manager", "member" | 操作某个群成员成为管�
 
 参数
 
-    action=rename
-   
-    newname
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+action |string |required |rename |操作
+newname |string |optional | |目录的新名字
 
 状态码 200
 
@@ -774,9 +790,11 @@ action |string |required | "manager", "member" | 操作某个群成员成为管�
 
 参数
 
-    action=copy
-    dst_repo_id
-    dst_dir_path        /parentDir/foo || new_foo
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+action |string |required |copy |操作
+dst_repo_id |string |required | |目的资源库id
+dst_dir_path |string |required | |目的目录完整路径,例如:/parentDir/new_foo
 
 状态码 200
 
@@ -789,9 +807,11 @@ action |string |required | "manager", "member" | 操作某个群成员成为管�
 
 参数
 
-    action=move
-    dst_repo_id
-    dst_dir_path        /parentDir/foo || new_foo
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+action |string |required |move |操作
+dst_repo_id |string |required | |目的资源库id
+dst_dir_path |string |required | |目的目录完整路径,例如:/parentDir/new_foo
 
 状态码 200
 
@@ -804,7 +824,10 @@ action |string |required | "manager", "member" | 操作某个群成员成为管�
 
 查询参数
 
-    reloaddir
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+reloaddir |string |optional | |表示删除后，需要把同层目录列表返回
+
 
 状态码 204
 
@@ -829,6 +852,7 @@ action |string |required | "manager", "member" | 操作某个群成员成为管�
     POST /v1/repos/{repo-id}/dirs/shared-link/?p=/foo
 
 参数
+
 argument |type |need |value |description
 :----- |:----- |:----- |:----- |:----
 password |string |optional | |共享的密码
@@ -928,8 +952,10 @@ parent_dir |string |required | | 上传文件到的目录
 
 参数
 
-    action=rename
-    newname
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+action |string |required |rename |操作
+newname |string |required | |文件新名字
 
 状态码 200
 
@@ -968,9 +994,11 @@ parent_dir |string |required | | 上传文件到的目录
 
 参数
 
-    action=move
-    dst_repo_id
-    dst_file_path       /parentDir/foo.c || new_foo.c
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+action |string |required |move |操作
+dst_repo_id |string |required | |目的资源库id
+dst_file_path |string |required | |目的文件完整路径，例如：/parentDir/new_foo.c
 
 状态码 200
 
@@ -983,9 +1011,11 @@ parent_dir |string |required | | 上传文件到的目录
 
 参数
 
-    action=copy
-    dst_repo_id
-    dst_file_path       /parentDir/foo.c || new_foo.c
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+action |string |required |copy |操作
+dst_repo_id |string |required | |目的资源库id
+dst_file_path |string |required | |目的文件完整路径，例如：/parentDir/new_foo.c
 
 状态码 200
 
@@ -999,9 +1029,10 @@ parent_dir |string |required | | 上传文件到的目录
 
 参数
 
-    action=revert
-    
-    commit_id
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+action |string |required |revert |操作
+commit_id |string |required | |恢复的版本id
 
 状态码 200
 
@@ -1016,7 +1047,7 @@ parent_dir |string |required | | 上传文件到的目录
 
 argument |type |need |value |description
 :----- |:----- |:----- |:----- |:----
-action |string |required |"history" |
+action |string |required |"history" |操作
 
 状态码 200
 
