@@ -132,6 +132,41 @@ is_staff |boolean |optional | |权限,需要管理员登录才可以修改
     }
 
 
+### 邮箱重置密码链接
+
+请求
+
+    GET /v1/accounts/reset-password/
+
+参数
+
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+email |string |required | |邮箱
+
+
+状态码 200
+
+
+### 重置密码链接过期检查
+
+请求
+
+    GET /v1/accounts/reset-password/{token}/
+
+
+状态码 200
+
+
+### 重置密码
+
+请求
+
+    POST /v1/accounts/reset-password/{token}/
+
+状态码 200
+
+
 ### 账号删除
 
 请求
@@ -175,6 +210,14 @@ is_staff |boolean |optional | |权限,需要管理员登录才可以修改
 
     GET /v1/groups/
 
+参数
+
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+skip |integer |optional |default=0 |起始数
+limit |integer |optional |default=10 |终止数
+with_repo |integer |optional |1 or 0 |附带这个组拥有的资源库，1表示附带，0表示不附带
+
 状态码 200
 
 响应
@@ -187,7 +230,8 @@ is_staff |boolean |optional | |权限,需要管理员登录才可以修改
             "create_at": 1478514540,
             "admins": [
                 "test_group"
-            ]
+            ],
+            "repos": []
         }
     ]
 
@@ -784,13 +828,18 @@ action |string |required | "manager", "member" | 操作某个群成员成为管�
 
     POST /v1/repos/{repo-id}/dirs/shared-link/?p=/foo
 
+参数
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+password |string |optional | |共享的密码
+expire |integer |optional | |过期时间
+
 状态码 201
 
 响应
 
-    {
-        "location": "/d/9ead811f68/"
-    }
+    "/d/9ead811f68/"
+
 
 
 ## 文件管理
