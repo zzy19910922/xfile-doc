@@ -1,6 +1,25 @@
 # ruifile 接口
 
 
+### 需要登录认证头部格式
+
+Headers参数
+
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+Authorization |string |required | ex.: Token f3e7494700af962d38583016e942a01148eda5a4 |认证
+
+
+### 请求错误返回格式
+
+错误码 400 401 403 404 500
+
+响应
+
+    {
+        "error_msg": "error msg"
+    }
+
 ## 账号管理
 
 ### 账号登录
@@ -18,8 +37,32 @@ password |string |required | |密码
 
 响应
 
-    {"token": "24fd3c026886e3121b2ca630805ed425c272cb96"}
+    {
+        "id": 7,
+        "username": "one",
+        "email": "one@test.com",
+        "is_staff": false,
+        "is_active": true,
+        "token": "28f5756802d1cc24ca017a03390eb37b140726e9",
+        "date_joined": "2016-11-08T08:08:15.568947Z"
+    }
 
+状态码
+
+* 200
+* 400
+* 403
+
+
+### 账号登出
+请求
+
+    DELETE /v1/auth/
+
+状态码
+
+* 204
+* 401
 
 
 ### 账号创建
@@ -656,37 +699,6 @@ password |string |required |  |资源库密码
     DELETE /v1/repos/{repo_id}/
 
 状态码 204
-
-
-### 获取库下载信息
-
-请求
-
-    GET /v1/repos/{repo_id}/download/
-
-状态码 200
-
-响应
-
-    {
-        "relay_id": "c82139f0e8ea546cc612d0467a60d1ccf8c4c3f6",
-        "relay_addr": "www.ruifile.com",
-        "relay_port": "10001",
-        "token": "6df2406b035952c39bd27118d3e29101f4cd11d2",
-        "email": "joker",
-        "repo_id": "3fbf186b-5343-41ac-962a-39839af938ab",
-        "repo_name": "joker_repos",
-        "repo_desc": "",
-        "repo_size": "0",
-        "repo_size_formatted": "0 bytes",
-        "repo_version": 1,
-        "head_commit_id": "3fe4054f1060c3c3efd2eece36de69fcadf656f5",
-        "random_key": "",
-        "magic": "",
-        "mtime": null,
-        "encrypted": "",
-        "enc_version": 0
-    }
 
 
 ### 搜索库
