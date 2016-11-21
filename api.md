@@ -155,7 +155,8 @@ limit |integer |optional | |终止数
 
 argument |type |need |value |description
 :----- |:----- |:----- |:----- |:----
-password |string |optional | |密码,需要用户登录
+old_password |string |optional | |旧密码,需要用户登录,当用于修改密码时候必填
+new_password |string |optional | |新密码,需要用户登录,当用于修改密码时候必填
 email |string |optional | |邮箱,需要用户登录
 is_staff |boolean |optional | |权限,需要管理员登录才可以修改
 
