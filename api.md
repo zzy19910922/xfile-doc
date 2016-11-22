@@ -155,9 +155,9 @@ limit |integer |optional | |终止数
 
 argument |type |need |value |description
 :----- |:----- |:----- |:----- |:----
-old_password |string |optional | |旧密码,需要用户登录,当用于修改密码时候必填
-new_password |string |optional | |新密码,需要用户登录,当用于修改密码时候必填
-email |string |optional | |邮箱,需要用户登录
+old_password |string |optional | |旧密码,需要用户登录,当用于登录用户的修改密码,邮箱时候必填;当管理员对某个用户修改时，不必填。
+new_password |string |optional | |新密码,需要用户登录,当用于登录用户的修改密码时候必填;
+email |string |optional | |邮箱,需要用户登录，当用于登录用户的邮箱时候必填;
 is_staff |boolean |optional | |权限,需要管理员登录才可以修改
 
 
@@ -649,7 +649,11 @@ desc |string |optional | |
     
     owner
 
-### 加密库
+### 库密码认证
+
+描述
+
+如果
 
 请求
 
