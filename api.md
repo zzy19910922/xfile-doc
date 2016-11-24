@@ -724,12 +724,35 @@ permission |string |optional | rw, r(default)  |权限
     }
 
 
+### 设置一个已有的资源库成为公用库
+
+请求
+
+    POST /v1/shared-repos/
+
+参数
+
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+repo_id |string |required | |公共资源库id
+share_type |string |required | public | 类型
+permission |string |required | r, rw | 授予公用库的权限
+
+状态码 200
+
 
 ### 删除公共库
 
 请求
 
-    DELETE /v1/repos/{repo_id}/
+    DELETE /v1/shared-repos/?repo_id=xx&share_type=public
+
+参数
+
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+repo_id |string |required | |公共资源库id
+share_type |string |required | public | 类型
 
 状态码 204
 
