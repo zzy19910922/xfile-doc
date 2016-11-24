@@ -186,10 +186,17 @@ is_staff |boolean |optional | |权限,需要管理员登录才可以修改
 
 argument |type |need |value |description
 :----- |:----- |:----- |:----- |:----
-email |string |required | |邮箱
+username-email |string |required | |用户名 或者 邮箱
 
 
 状态码 200
+
+响应
+
+    {
+          "username": "joker",
+          "email": "q*********9@163.com"
+    }
 
 
 ### 重置密码链接过期检查
@@ -645,15 +652,30 @@ desc |string |optional | |
 
 参数
 
-    action=transfer
-    
-    owner
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+action |string |required |transfer | 操作
+new_owner |string |required |  |库转让给的人
+
+响应
+
+    {
+        "id": "f158d1dd-cc19-412c-b143-2ac83f352290",
+        "name": "foo",
+        "desc": "new library",
+        "permission": "rw",
+        "encrypted": false,
+        "mtime": 1400054900,
+        "owner": "new owner",
+        "size": 0,
+    }
+
 
 ### 库密码认证
 
 描述
 
-如果
+如果库有设置密码，需要先使用这个接口解密库
 
 请求
 
@@ -678,7 +700,13 @@ password |string |required |  |资源库密码
 
 参数
 
-    name, permission(r, rw), password
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+name |string |required | |公共资源库名字
+password |string |optional |  |公共资源库密码
+desc |string |optional |  |公共资源库描述
+permission |string |optional | rw, r(default)  |权限
+
 
 状态码 200
 
@@ -691,7 +719,7 @@ password |string |required |  |资源库密码
         "permission": "rw",
         "encrypted": false,
         "mtime": 1400054900,
-        "owner": "user@mail.com",
+        "owner": "joker",
         "size": 0,
     }
 
