@@ -1202,7 +1202,10 @@ commit_id |strting |required |"" | 版本id
 
 argument |type |need |value |description
 :----- |:----- |:----- |:----- |:----
-msg_type |string |option |"share_repo", "share_dir" |消息类型
+msg_type |string |optional |"share_repo", "share_dir" |消息类型
+seen |string |optional |"all", "true", "false"(default) |消息查看状态,all表示所有,true表示已看,false表示未看
+skip |integer |optional |0(default) |起始数
+limit |integer |optional |20(default) |终止数
 
 
 状态码 200
@@ -1211,17 +1214,21 @@ msg_type |string |option |"share_repo", "share_dir" |消息类型
 
     [
         {
+            "id": 23,
             "to_user": "admin",
             "msg_type": "dir_share",
             "msg_from": "joker",
             "content": "joker share a dir to you.",
+            "seen": false,
             "timestamp": "2016-10-14T06:59:15.324865Z"
         },
         {
+            "id": 24
             "to_user": "admin",
             "msg_type": "repo_share",
             "msg_from": "joker",
             "content": "joker share a repo to you.",
+            "seen": false,
             "timestamp": "2016-10-14T07:00:23.377720Z"
         }
     ]
@@ -1234,6 +1241,45 @@ msg_type |string |option |"share_repo", "share_dir" |消息类型
     DELETE /v1/notifications/
 
 状态码 204
+
+
+### 标记所有通知为已看
+
+请求
+
+    POST /v1/notifications/
+
+状态码 200
+
+
+### 标记单个通知为已看
+
+请求
+
+    POST /v1/notifications/{notice_id}/
+
+状态码 200
+
+
+### 查看单个通知详情
+
+请求
+
+    GET /v1/notifications/{notice_id}/
+
+状态码 200
+
+响应
+
+    {
+        "id": 22,
+        "to_user": "new",
+        "msg_type": "repo_share",
+        "msg_from": "joker",
+        "content": "joker share a repo to you.",
+        "seen": true,
+        "timestamp": "2016-11-25T05:53:18.429026Z"
+    }
 
 
 ## 共享操作
