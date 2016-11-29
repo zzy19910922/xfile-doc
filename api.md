@@ -92,7 +92,7 @@ email |string |required | |邮箱
         "is_active": true,
         "usage": 0,
         "total": 107374182400,
-        "ctime": 1356061187741686,
+        "ctime": 1356061187,
     }
 
 
@@ -121,7 +121,7 @@ limit |integer |optional | |终止数
             "is_active": true,
             "usage": 0,
             "total": 107374182400,
-            "ctime": 1356061187741686,
+            "ctime": 1356061187,
         }
     ]
 
@@ -142,7 +142,7 @@ limit |integer |optional | |终止数
         "is_active": true,
         "usage": 651463187,
         "total": 107374182400,
-        "ctime": 1356061187741686,
+        "ctime": 1356061187,
     }
 
 
@@ -174,7 +174,7 @@ is_staff |boolean |optional | |权限,需要管理员登录才可以修改
         "is_active": true,
         "usage": 651463187,
         "total": 107374182400,
-        "ctime": 1356061187741686,
+        "ctime": 1356061187,
     }
 
 
@@ -726,23 +726,6 @@ permission |string |optional | rw, r(default)  |权限
     }
 
 
-### 设置一个已有的资源库成为公用库
-
-请求
-
-    POST /v1/shared-repos/
-
-参数
-
-argument |type |need |value |description
-:----- |:----- |:----- |:----- |:----
-repo_id |string |required | |公共资源库id
-share_type |string |required | public | 类型
-permission |string |required | r, rw | 授予公用库的权限
-
-状态码 200
-
-
 ### 删除公共库
 
 请求
@@ -932,7 +915,7 @@ expire |integer |optional | |过期时间
 
 响应
 
-    "/d/9ead811f68/"
+    "http://xxx.com:8082/d/9ead811f68/"
 
 
 
@@ -983,7 +966,7 @@ parent_dir |string |required | | 上传文件到的目录
 
 响应
 
-    "0000000000000000000000000000000000000000"      file_id
+    "0000000000000000000000000000000000000000"      #file_id
 
 
 ### 获取文件详情
@@ -1026,32 +1009,6 @@ argument |type |need |value |description
 :----- |:----- |:----- |:----- |:----
 action |string |required |rename |操作
 newname |string |required | |文件新名字
-
-状态码 200
-
-
-### 锁定文件
-
-请求
-
-    POST /v1/repos/{repo-id}/files/action?p=foo.c
-
-参数
-
-    action=lock
-
-状态码 200
-
-
-### 解锁文件
-
-请求
-
-    POST /v1/repos/{repo-id}/files/action?p=foo.c
-
-参数
-
-    action=lock
 
 状态码 200
 
@@ -1127,19 +1084,10 @@ action |string |required |"history" |操作
         "commits":[
             {
                 "id": "e9116702c0a801b4b802e03ffa18dd691a43a153",
-                "parent_id": "97a657b64f67b42a46e6ef77f83aa547261e4312",
-                "second_parent_id": null,
                 "repo_id": "f468fa9b-a0e4-4ad7-bd15-dd2edd90f6fe",
-                "root_id": "1997c5b61f684cdf0a59a918e5007c9d73b6cace",
-                "creator": "0000000000000000000000000000000000000000",
                 "creator_name": "joker",
-                "rev_file_id": "0000000000000000000000000000000000000000",
-                "rev_file_size": 0,
-                "rev_renamed_old_path": null,
                 "ctime": 1476698143,
-                "device_name": null,
                 "new_merge": false,
-                "version": 1,
                 "conflict": false,
                 "desc": "Renamed \"fooo.py\""
             }
@@ -1164,7 +1112,7 @@ commit_id |strting |required |"" | 版本id
 
 响应
 
-    "/files/2fd9fa56-f01a-4e12-a6d3-36f3fa7cc5fa/foo.c"
+    "http://xxx.com:8082/files/2fd9fa56-f01a-4e12-a6d3-36f3fa7cc5fa/foo.c"
 
 
 
@@ -1187,9 +1135,7 @@ commit_id |strting |required |"" | 版本id
 
 响应
 
-    {
-        "location": "/f/939ac61687/"
-    }
+    "http://xxx.com:8082/f/939ac61687/"
 
 
 ## 通知管理
@@ -1222,7 +1168,7 @@ limit |integer |optional |20(default) |终止数
             "msg_from": "joker",
             "content": "joker share a dir to you.",
             "seen": false,
-            "timestamp": "2016-10-14T06:59:15.324865Z"
+            "timestamp": 1476698143
         },
         {
             "id": 24
@@ -1231,7 +1177,7 @@ limit |integer |optional |20(default) |终止数
             "msg_from": "joker",
             "content": "joker share a repo to you.",
             "seen": false,
-            "timestamp": "2016-10-14T07:00:23.377720Z"
+            "timestamp": 1476698143
         }
     ]
 
@@ -1280,7 +1226,7 @@ limit |integer |optional |20(default) |终止数
         "msg_from": "joker",
         "content": "joker share a repo to you.",
         "seen": true,
-        "timestamp": "2016-11-25T05:53:18.429026Z"
+        "timestamp": 1476698143
     }
 
 
