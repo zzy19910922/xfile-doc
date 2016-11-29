@@ -46,7 +46,7 @@ password |string |required | |密码
         "is_staff": false,
         "is_active": true,
         "token": "28f5756802d1cc24ca017a03390eb37b140726e9",
-        "date_joined": "2016-11-08T08:08:15.568947Z"
+        "date_joined": 1478162560
     }
 
 状态码
@@ -92,7 +92,7 @@ email |string |required | |邮箱
         "is_active": true,
         "usage": 0,
         "total": 107374182400,
-        "ctime": 1356061187,
+        "date_joined": 1356061187,
     }
 
 
@@ -121,7 +121,7 @@ limit |integer |optional | |终止数
             "is_active": true,
             "usage": 0,
             "total": 107374182400,
-            "ctime": 1356061187,
+            "date_joined": 1356061187,
         }
     ]
 
@@ -142,7 +142,7 @@ limit |integer |optional | |终止数
         "is_active": true,
         "usage": 651463187,
         "total": 107374182400,
-        "ctime": 1356061187,
+        "date_joined": 1356061187,
     }
 
 
@@ -174,7 +174,7 @@ is_staff |boolean |optional | |权限,需要管理员登录才可以修改
         "is_active": true,
         "usage": 651463187,
         "total": 107374182400,
-        "ctime": 1356061187,
+        "date_joined": 1356061187,
     }
 
 
@@ -724,22 +724,6 @@ permission |string |optional | rw, r(default)  |权限
         "owner": "joker",
         "size": 0,
     }
-
-
-### 删除公共库
-
-请求
-
-    DELETE /v1/shared-repos/?repo_id=xx&share_type=public
-
-参数
-
-argument |type |need |value |description
-:----- |:----- |:----- |:----- |:----
-repo_id |string |required | |公共资源库id
-share_type |string |required | public | 类型
-
-状态码 204
 
 
 ### 搜索库
@@ -1297,6 +1281,15 @@ limit |integer |optional |20(default) |终止数
 
     DELETE /v1/shared-repos/?repo_id=xxx&share_type=personal&user=foo
 
+参数
+
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+repo_id |string |required | |资源库id
+share_type |string |required |personal, group, public | 当public时，是删除一个公有库
+user |string |optional |username |被分享用户名,当share_type=personal时,必填
+group_id |Integer |optional | |被分享组id,当share_type=group,必填
+
 状态码 204
 
 
@@ -1311,9 +1304,9 @@ limit |integer |optional |20(default) |终止数
 argument |type |need |value |description
 :----- |:----- |:----- |:----- |:----
 repo_id |string |required | |资源库id
-share_type |string |required |personal, group, public |
-users |list |option |["username"] |被分享用户名列表,当share_type=personal时,必填
-group_id |Integer |option | |被分享组id,当share_type=group,必填
+share_type |string |required |personal, group, public | 当public时,是将一个已存在的库设置成公有库
+users |list |optional |["username"] |被分享用户名列表,当share_type=personal时,必填
+group_id |Integer |optional | |被分享组id,当share_type=group,必填
 permission |string |required |r, rw |权限
 
 状态码 200
