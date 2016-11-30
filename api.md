@@ -271,7 +271,7 @@ argument |type |need |value |description
 :----- |:----- |:----- |:----- |:----
 skip |integer |optional |default=0 |起始数
 limit |integer |optional |default=10 |终止数
-with_repo |integer |optional |1 or 0 |附带这个组拥有的资源库，1表示附带，0表示不附带
+with_repos |integer |optional |1 or 0 |附带这个组拥有的资源库，1表示附带，0表示不附带
 
 状态码 200
 
@@ -552,6 +552,7 @@ action |string |required | "manager", "member" | 操作某个群成员成为管�
         "mtime": 1400054900,
         "owner": "user",
         "size": 0,
+	"is_virtual": false
     }]
 
 
@@ -574,6 +575,7 @@ action |string |required | "manager", "member" | 操作某个群成员成为管�
         "mtime": 1400054900,
         "owner": "user",
         "size": 0,
+	"is_virtual": false
     }
 
 
@@ -604,6 +606,7 @@ password |string |optional |  |资源库密码
         "mtime": 1400054900,
         "owner": "user",
         "size": 0,
+	"is_virtual": false
     }
 
 
@@ -643,6 +646,7 @@ desc |string |optional | |
         "mtime": 1400054900,
         "owner": "user,
         "size": 0,
+	"is_virtual": false
     }
 
 
@@ -670,6 +674,7 @@ new_owner |string |required |  |库转让给的人
         "mtime": 1400054900,
         "owner": "new owner",
         "size": 0,
+	"is_virtual": false
     }
 
 
@@ -723,6 +728,7 @@ permission |string |optional | rw, r(default)  |权限
         "mtime": 1400054900,
         "owner": "joker",
         "size": 0,
+	"is_virtual": false
     }
 
 
@@ -782,12 +788,16 @@ recursive |string |optional |1 or 0 |递归,1表示递归的列出该路径下�
 	    "id": "0000000000000000000000000000000000000000",
 	    "type": "file",
 	    "name": "test1.c",
-	    "size": 0
+	    "size": 0,
+	    "mtime": 1479205913,
+            "permission": "rw"
 	},
 	{
 	    "id": "e4fe14c8cda2206bb9606907cf4fca6b30221cf9",
 	    "type": "dir",
-	    "name": "test_dir"
+	    "name": "test_dir",
+	    "mtime": 1479288209,
+            "permission": "rw"
 	}]
 
 ### 创建目录
@@ -881,7 +891,7 @@ reloaddir |string |optional | |表示删除后，需要把同层目录列表返�
 
 响应
 
-    "https://xxx.com:8082/files/766415dc-8f30-4d37-8f60-992fb3d88f05/foo"
+    "https://xxx.com:8082/zip/766415dc-8f30-4d37-8f60-992fb3d88f05"
 
 
 ### 目录共享链接
@@ -1116,6 +1126,13 @@ commit_id |strting |required |"" | 版本id
 请求
 
     POST /v1/repos/{repo-id}/files/shared-link/?p=/foo.c
+
+参数
+
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+password |string |optional | |共享的密码
+expire |integer |optional | |过期时间
 
 状态码 201
 
