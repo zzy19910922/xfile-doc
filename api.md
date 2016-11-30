@@ -730,28 +730,30 @@ permission |string |optional | rw, r(default)  |权限
 
 请求
 
-    GET /v1/search/
+    GET /v1/repos/search/?q=123
 
 参数
 
-    q, per_page
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+q |string |required | |搜索的keyword
 
 状态码 200
 
 响应
 
-    {
-        "has_more": false,
-        "total": 1,
-        "results": [{
-                "repo_id": "691b3e24-d05e-43cd-a9f2-6f32bd6b800e",
-                "name": "api.md",
-                "oid": "8ea78453bb474359cd9d8e2c4c4d8d9cbdcef0a2",
-                "last_modified": 1398045167,
-                "fullpath": "/api.md",
-                "size": 18939
-            }]
-     }
+    [
+        {
+            "path": "/mm/123dir",
+            "repo_id": "9c42cedd-5ad2-4741-bbbf-2d65b38b21e5",
+            "repo_name": "joker_repo1"
+        },
+        {
+            "path": "/mm/123dir/123.py",
+            "repo_id": "9c42cedd-5ad2-4741-bbbf-2d65b38b21e5",
+            "repo_name": "joker_repo1"
+        }
+    ]
 
 
 
@@ -1221,6 +1223,12 @@ limit |integer |optional |20(default) |终止数
 请求
 
     GET /v1/shared-repos/
+
+参数
+
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+repo_id |string |optional | |资源库id
 
 状态码 200
 
