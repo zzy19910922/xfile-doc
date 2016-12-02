@@ -1482,11 +1482,19 @@ group_id |int |option | |被分享的分组,share_type=group, all时必填
     [
         {
             "s_type": "d",
-            "link": "http://localhost:8080/v1/shared-links/4d55b441a8/"
+            "link": "http://localhost:8080/v1/shared-links/4d55b441a8/",
+	    "expire": true,
+	    "expire_date": 1398218747,
+	    "password": true,
+	    "view_cnt": 100
         },
         {
             "s_type": "f",
-            "link": "http://localhost:8080/v1/shared-links/bf23dd4e83/"
+            "link": "http://localhost:8080/v1/shared-links/bf23dd4e83/",
+	    "expire": false,
+	    "expire_date": 1398218747,
+	    "password": false,
+	    "view_cnt": 2
         }
     ]
 
@@ -1508,6 +1516,16 @@ group_id |int |option | |被分享的分组,share_type=group, all时必填
 
 状态码 200
 
+响应
+
+    {
+        "s_type": "d",
+        "link": "http://localhost:8080/v1/shared-links/4d55b441a8/",
+	"expire": true,
+	"expire_date": 1398218747,
+	"password": true,
+	"view_cnt": 100
+    }
 
 #### 根据共享链接获得下载url
 
@@ -1524,4 +1542,4 @@ password |string |optional | |分享密码,当创建分享链接时候有设置�
 
 响应
 
-    "http://localhost:8080/v1/shared-links/bf23dd4e83/"
+    "https://xxx.com:8082/files/5a3f3a63-b13d-4b78-82b2-6547c1e77dd7/foo.c"
