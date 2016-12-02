@@ -552,7 +552,7 @@ action |string |required | "manager", "member" | 操作某个群成员成为管�
         "mtime": 1400054900,
         "owner": "user",
         "size": 0,
-	"is_virtual": false
+        "is_virtual": false,
     }]
 
 
@@ -575,7 +575,7 @@ action |string |required | "manager", "member" | 操作某个群成员成为管�
         "mtime": 1400054900,
         "owner": "user",
         "size": 0,
-	"is_virtual": false
+        "is_virtual": false,
     }
 
 
@@ -606,7 +606,7 @@ password |string |optional |  |资源库密码
         "mtime": 1400054900,
         "owner": "user",
         "size": 0,
-	"is_virtual": false
+        "is_virtual": false,
     }
 
 
@@ -646,7 +646,7 @@ desc |string |optional | |
         "mtime": 1400054900,
         "owner": "user,
         "size": 0,
-	"is_virtual": false
+        "is_virtual": false,
     }
 
 
@@ -674,7 +674,7 @@ new_owner |string |required |  |库转让给的人
         "mtime": 1400054900,
         "owner": "new owner",
         "size": 0,
-	"is_virtual": false
+        "is_virtual": false,
     }
 
 
@@ -728,7 +728,7 @@ permission |string |optional | rw, r(default)  |权限
         "mtime": 1400054900,
         "owner": "joker",
         "size": 0,
-	"is_virtual": false
+        "is_virtual": false,
     }
 
 
@@ -911,7 +911,7 @@ expire |integer |optional | |过期时间
 
 响应
 
-    "http://xxx.com:8082/d/9ead811f68/"
+    "http://xxx.com:8082/v1/shared-links/9ead811f68/"
 
 
 
@@ -1138,7 +1138,7 @@ expire |integer |optional | |过期时间
 
 响应
 
-    "http://xxx.com:8082/f/939ac61687/"
+    "http://xxx.com:8082/v1/shared-links/939ac61687/"
 
 
 ## 通知管理
@@ -1469,10 +1469,59 @@ group_id |int |option | |被分享的分组,share_type=group, all时必填
 
 ### 共享链接
 
+#### 获得共享链接列表
+
+请求
+
+    GET /v1/shared-links/
+
+状态码 204
+
+响应
+
+    [
+        {
+            "s_type": "d",
+            "link": "http://localhost:8080/v1/shared-links/4d55b441a8/"
+        },
+        {
+            "s_type": "f",
+            "link": "http://localhost:8080/v1/shared-links/bf23dd4e83/"
+        }
+    ]
+
+
 #### 删除共享链接
 
 请求
 
-    DELETE /v1/shared-links/?t=939ac61687
+    DELETE /v1/shared-links/4d55b441a8/
 
 状态码 204
+
+
+#### 检查共享链接
+
+请求
+
+    GET /v1/shared-links/4d55b441a8/
+
+状态码 200
+
+
+#### 根据共享链接获得下载url
+
+    POST /v1/shared-links/4d55b441a8/
+
+参数
+
+argument |type |need |value |description
+:----- |:----- |:----- |:----- |:----
+s_type |string |required |f, d |分享的类型,f表示文件,d表示目录
+password |string |optional | |分享密码,当创建分享链接时候有设置密码,会检查并要求是否填写
+
+状态码 200
+
+响应
+
+    "http://localhost:8080/v1/shared-links/bf23dd4e83/"
