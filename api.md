@@ -1483,18 +1483,18 @@ group_id |int |option | |被分享的分组,share_type=group, all时必填
         {
             "s_type": "d",
             "link": "http://localhost:8080/v1/shared-links/4d55b441a8/",
-	    "expire": true,
-	    "expire_date": 1398218747,
-	    "password": true,
-	    "view_cnt": 100
+            "expire": true,
+            "expire_date": 1398218747,
+            "password": true,
+            "view_cnt": 100
         },
         {
             "s_type": "f",
             "link": "http://localhost:8080/v1/shared-links/bf23dd4e83/",
-	    "expire": false,
-	    "expire_date": 1398218747,
-	    "password": false,
-	    "view_cnt": 2
+            "expire": false,
+            "expire_date": 1398218747,
+            "password": false,
+            "view_cnt": 2
         }
     ]
 
@@ -1521,10 +1521,10 @@ group_id |int |option | |被分享的分组,share_type=group, all时必填
     {
         "s_type": "d",
         "link": "http://localhost:8080/v1/shared-links/4d55b441a8/",
-	"expire": true,
-	"expire_date": 1398218747,
-	"password": true,
-	"view_cnt": 100
+        "expire": true,
+        "expire_date": 1398218747,
+        "password": true,
+        "view_cnt": 100
     }
 
 #### 根据共享链接获得下载url
