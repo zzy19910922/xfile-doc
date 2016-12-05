@@ -953,8 +953,7 @@ expire |integer |optional | |过期时间
 
 argument |type |need |value |description
 :----- |:----- |:----- |:----- |:----
-file |string |required | |文件标识
-filename |string |required | | 文件名(带文件后缀)
+file |string |required | |文件名
 parent_dir |string |required | | 上传文件到的目录
 
 
@@ -962,7 +961,7 @@ parent_dir |string |required | | 上传文件到的目录
 
 响应
 
-    "0000000000000000000000000000000000000000"      #file_id
+    "cef334e543a9a154d9384d5753d4464b6b385fae"      #file_id
 
 
 ### 获取文件详情
