@@ -654,7 +654,7 @@ desc |string |optional | |
 
 请求
 
-    POST /v1/repos/{repo_id}/action
+    POST /v1/repos/{repo_id}/action/
 
 参数
 
@@ -686,7 +686,7 @@ new_owner |string |required |  |库转让给的人
 
 请求
 
-    POST /v1/repos/{repo_id}/action
+    POST /v1/repos/{repo_id}/action/
 
 
 参数
@@ -819,7 +819,7 @@ reloaddir |string |optional | |表示创建后，需要把同层目录列表返�
 
 请求
 
-    POST  /v1/repos/{repo-id}/dirs/action?p=/foo
+    POST  /v1/repos/{repo-id}/dirs/action/?p=/foo
 
 参数
 
@@ -835,7 +835,7 @@ newname |string |optional | |目录的新名字
 
 请求
 
-    POST  /v1/repos/{repo-id}/dirs/action?p=/foo
+    POST  /v1/repos/{repo-id}/dirs/action/?p=/foo
 
 参数
 
@@ -852,7 +852,7 @@ dst_dir_path |string |required | |目的目录完整路径,例如:/parentDir/new
 
 请求
 
-    POST  /v1/repos/{repo-id}/dirs/action?p=/foo
+    POST  /v1/repos/{repo-id}/dirs/action/?p=/foo
 
 参数
 
@@ -996,7 +996,7 @@ parent_dir |string |required | | 上传文件到的目录
 
 请求
 
-    POST /v1/repos/{repo-id}/files/action?p=foo.c
+    POST /v1/repos/{repo-id}/files/action/?p=foo.c
 
 参数
 
