@@ -940,13 +940,13 @@ expire |integer |optional | |过期时间
 
 响应
 
-    "https://xxx.com:8082/upload-api/90e6db94-c2f9-4af5-b49d-3a21dc27e6c6"
+    "https://xxx.com:8082/upload-aj/90e6db94-c2f9-4af5-b49d-3a21dc27e6c6"
 
 ### 上传文件
 
 请求
 
-    POST https://xxx.com:8082/upload-api/90e6db94-c2f9-4af5-b49d-3a21dc27e6c6
+    POST https://xxx.com:8082/upload-aj/90e6db94-c2f9-4af5-b49d-3a21dc27e6c6
 
 
 参数
@@ -961,7 +961,13 @@ parent_dir |string |required | | 上传文件到的目录
 
 响应
 
-    "cef334e543a9a154d9384d5753d4464b6b385fae"      #file_id
+    [
+        {
+            "name": "xx.txt",
+            "id": "0000000000000000000000000000000000000000",
+            "size": 0
+        }
+    ]
 
 
 ### 获取文件详情
