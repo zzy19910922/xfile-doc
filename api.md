@@ -253,9 +253,7 @@ group_name |string |required | |组名
         "name": "group1",
         "owner": "test_group",
         "create_at": 1478514540,
-        "admins": [
-            "test_group"
-        ]
+        "managers": []
     }
 
 
@@ -283,8 +281,8 @@ with_repos |integer |optional |1 or 0 |附带这个组拥有的资源库，1表�
             "name": "group1",
             "owner": "test_group",
             "create_at": 1478514540,
-            "admins": [
-                "test_group"
+            "managers": [
+                "joker"
             ],
             "repos": []
         }
@@ -306,8 +304,8 @@ with_repos |integer |optional |1 or 0 |附带这个组拥有的资源库，1表�
         "name": "group1",
         "owner": "test_group",
         "create_at": 1478514540,
-        "admins": [
-            "test_group"
+        "managers": [
+            "joker"
         ]
     }
 
@@ -334,8 +332,8 @@ new_name |string |required | | 新组名
         "name": "new_group1",
         "owner": "test_group",
         "create_at": 1478514540,
-        "admins": [
-            "test_group"
+        "managers": [
+            "joker"
         ]
     }
 
@@ -363,8 +361,8 @@ target |string |required | | 把组转让给的用户名
         "name": "new_group1",
         "owner": "joker",
         "create_at": 1478514540,
-        "admins": [
-            "test_group"
+        "managers": [
+            "one"
         ]
     }
 
@@ -396,13 +394,13 @@ target |string |required | | 把组转让给的用户名
             "id": 1,
             "group_id": 89,
             "username": "test_group",
-            "is_staff": 0
+            "role": "owner"
         },
         {
             "id": 2,
             "group_id": 89,
             "username": "joker",
-            "is_staff": 1
+            "role": "manager"
         }
     ]
 
@@ -427,7 +425,7 @@ target |string |required | | 用户名
         "id": 2,
         "name": "foo",
         "group_id": 78
-        "is_staff": 0
+        "role": "member"
     }
 
 
@@ -459,13 +457,13 @@ targets |list |required | | 用户名列表
                 "id": 4,
                 "username": "joker",
                 "group_id": "78",
-                "is_staff": 0
+                "role": "member"
             },
             {
                 "id": 6,
                 "username": "other",
                 "group_id": "78",
-                "is_staff": 0
+                "role": "member"
             }
         ]
     }
@@ -486,7 +484,7 @@ targets |list |required | | 用户名列表
         "id": 2,
         "name": "foo",
         "group_id": 78
-        "is_staff": 0
+        "role": "member"
     }
 
 
@@ -510,7 +508,7 @@ action |string |required | "manager", "member" | 操作某个群成员成为管�
         "id": 2,
         "name": "foo",
         "group_id": 78
-        "is_staff": 1
+        "role": "manager"
     }
 
 **or**
@@ -519,7 +517,7 @@ action |string |required | "manager", "member" | 操作某个群成员成为管�
         "id": 2,
         "name": "foo",
         "group_id": 78
-        "is_staff": 0
+        "role": "member"
     }
 
 
