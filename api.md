@@ -1257,6 +1257,7 @@ repo_id |string |optional | |资源库id
     [{
         "repo_id": "7d42522b-1f6f-465d-b9c9-879f8eed7c6c",
         "share_type": "personal",
+        "desc": "",
         "permission": "rw",
         "encrypted": false,
         "user": "user@example.com",
@@ -1268,6 +1269,7 @@ repo_id |string |optional | |资源库id
      {
         "repo_id": "79bb29cd-b683-4844-abaf-433952723ca5",
         "share_type": "group",
+        "desc": "",
         "permission": "rw",
         "encrypted": false,
         "user": "user@example.com",
@@ -1292,6 +1294,7 @@ repo_id |string |optional | |资源库id
         "user": "user@example.com",
         "repo_id": "989e3952-9d6f-4427-ab16-4bf9b53212eb",
         "share_type": "personal",
+        "desc": "",
         "permission": "rw",
         "encrypted": false,
         "repo_desc": "lib shared to imwhatiam",
