@@ -38,8 +38,8 @@ function deploy_seafile {
 }
 
 function deploy_ruihub {
-        python ruihub/manage.py compilemessages
 	python setup.py install
+	python ruihub/manage.py compilemessages
 	python ruihub/manage.py migrate --noinput
 }
 
