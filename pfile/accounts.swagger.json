@@ -1,0 +1,1493 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "accounts.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/accounts": {
+      "get": {
+        "operationId": "ListUsers",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsUsers"
+            }
+          }
+        },
+        "tags": [
+          "AccountSrv"
+        ]
+      },
+      "post": {
+        "operationId": "CreateUser",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsUser"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/accountsCreateUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      }
+    },
+    "/v1/accounts/login": {
+      "post": {
+        "operationId": "Login",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsLoginReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/accountsLoginRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      }
+    },
+    "/v1/accounts/logout": {
+      "post": {
+        "operationId": "Logout",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsEmpty"
+            }
+          }
+        },
+        "tags": [
+          "AccountSrv"
+        ]
+      }
+    },
+    "/v1/accounts/search/{username}": {
+      "get": {
+        "operationId": "SearchUsers",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsUsers"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      }
+    },
+    "/v1/accounts/{id}": {
+      "get": {
+        "operationId": "GetUser",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsUser"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      },
+      "delete": {
+        "operationId": "DeleteUser",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsEmpty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      },
+      "put": {
+        "operationId": "UpdateUser",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsUser"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/accountsUpdateUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      }
+    },
+    "/v1/accounts/{id}/active": {
+      "put": {
+        "operationId": "ActiveUser",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsUser"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/accountsActiveUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      }
+    },
+    "/v1/accounts/{login_id}/password": {
+      "put": {
+        "operationId": "UpdatePassword",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsEmpty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "login_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/accountsUpdatePasswordRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      }
+    },
+    "/v1/accounts/{login_id}/resetpassword": {
+      "put": {
+        "operationId": "ResetPassword",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsEmpty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "login_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/accountsResetPasswordRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      }
+    },
+    "/v1/organizations": {
+      "get": {
+        "operationId": "ListOrganizations",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsOrganizations"
+            }
+          }
+        },
+        "tags": [
+          "AccountSrv"
+        ]
+      },
+      "post": {
+        "operationId": "CreateOrganization",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsOrganization"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/accountsCreateOrganizationRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      }
+    },
+    "/v1/organizations/{id}": {
+      "delete": {
+        "operationId": "DeleteOrganization",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsEmpty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      },
+      "post": {
+        "operationId": "GetOrganization",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsOrganization"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      },
+      "put": {
+        "operationId": "UpdateOrganization",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsOrganization"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/accountsUpdateOrganizationRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      }
+    },
+    "/v1/organizations/{id}/members": {
+      "get": {
+        "operationId": "ListOrganizationMembers",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsUsers"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      }
+    },
+    "/v1/organizations/{organization_id}/members/{user_id}": {
+      "delete": {
+        "operationId": "RemoveOrganizationMember",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsEmpty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      },
+      "post": {
+        "operationId": "AddOrganizationMember",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsEmpty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      }
+    },
+    "/v1/permission/grant": {
+      "post": {
+        "operationId": "Grant",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsEmpty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/accountsGrantRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      }
+    },
+    "/v1/permission/revoke": {
+      "post": {
+        "operationId": "Revoke",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsEmpty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/accountsRevokeRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      }
+    },
+    "/v1/permission/roles": {
+      "get": {
+        "operationId": "ListRoles",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsroles"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "SYSTEM",
+              "ORGANIZATION",
+              "TEAM",
+              "REPO"
+            ],
+            "default": "SYSTEM"
+          },
+          {
+            "name": "resource_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      },
+      "post": {
+        "operationId": "CreateRole",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsrole"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/accountsCreateRoleRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      }
+    },
+    "/v1/permission/roles/operations": {
+      "get": {
+        "operationId": "ListRoleTypeOperations",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsoperations"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "SYSTEM",
+              "ORGANIZATION",
+              "TEAM",
+              "REPO"
+            ],
+            "default": "SYSTEM"
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      }
+    },
+    "/v1/permission/roles/{id}": {
+      "delete": {
+        "operationId": "DeleteRole",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsEmpty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      }
+    },
+    "/v1/permission/users/{user_id}/roles": {
+      "get": {
+        "operationId": "GetUserRoles",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsroles"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "SYSTEM",
+              "ORGANIZATION",
+              "TEAM",
+              "REPO"
+            ],
+            "default": "SYSTEM"
+          },
+          {
+            "name": "resource_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      }
+    },
+    "/v1/teams": {
+      "get": {
+        "operationId": "ListTeams",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsTeams"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      },
+      "post": {
+        "operationId": "CreateTeam",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsTeam"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/accountsCreateTeamRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      }
+    },
+    "/v1/teams/{id}": {
+      "get": {
+        "operationId": "GetTeam",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsTeam"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      },
+      "delete": {
+        "operationId": "DeleteTeam",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsEmpty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      },
+      "put": {
+        "operationId": "UpdateTeam",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsTeam"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/accountsUpdateTeamRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      }
+    },
+    "/v1/teams/{id}/members": {
+      "get": {
+        "operationId": "ListTeamMembers",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsUsers"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      }
+    },
+    "/v1/teams/{team_id}/members/{user_id}": {
+      "delete": {
+        "operationId": "RemoveTeamMember",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsEmpty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "team_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      },
+      "post": {
+        "operationId": "AddTeamMember",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsEmpty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "team_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "ResetPasswordRequestResetType": {
+      "type": "string",
+      "enum": [
+        "EMAIL",
+        "PHONE"
+      ],
+      "default": "EMAIL"
+    },
+    "accountsActiveUserRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "active": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "accountsAddOrganizationMemberRequest": {
+      "type": "object",
+      "properties": {
+        "organization_id": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsAddTeamMemberRequest": {
+      "type": "object",
+      "properties": {
+        "team_id": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsCreateOrganizationRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "owner_id": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsCreateRoleRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/accountsROLE_TYPE"
+        },
+        "resource_id": {
+          "type": "string"
+        },
+        "operations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/accountsoperation"
+          }
+        }
+      }
+    },
+    "accountsCreateTeamRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "owner_id": {
+          "type": "string"
+        },
+        "organization_id": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsCreateUserRequest": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsDeleteOrganizationRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsDeleteRoleRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsDeleteTeamRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsDeleteUserRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsEmpty": {
+      "type": "object"
+    },
+    "accountsGetOrganizationRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsGetTeamRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsGetUserRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsGetUserRoleRequest": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/accountsROLE_TYPE"
+        },
+        "resource_id": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsGrantRequest": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string"
+        },
+        "role_id": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsListOrganizationMembersRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsListRoleTypeOperationsRequest": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/accountsROLE_TYPE"
+        }
+      }
+    },
+    "accountsListRolesRequest": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/accountsROLE_TYPE"
+        },
+        "resource_id": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsListTeamMembersRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsListTeamsRequest": {
+      "type": "object",
+      "properties": {
+        "organization_id": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsLoginReply": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "user": {
+          "$ref": "#/definitions/accountsUser"
+        }
+      }
+    },
+    "accountsLoginRequest": {
+      "type": "object",
+      "properties": {
+        "login_id": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "device": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsLogoutRequest": {
+      "type": "object",
+      "properties": {
+        "device": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsOrganization": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "owner_id": {
+          "type": "string"
+        },
+        "create_at": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "accountsOrganizations": {
+      "type": "object",
+      "properties": {
+        "organizations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/accountsOrganization"
+          }
+        }
+      }
+    },
+    "accountsROLE_TYPE": {
+      "type": "string",
+      "enum": [
+        "SYSTEM",
+        "ORGANIZATION",
+        "TEAM",
+        "REPO"
+      ],
+      "default": "SYSTEM"
+    },
+    "accountsRemoveOrganizationMemberRequest": {
+      "type": "object",
+      "properties": {
+        "organization_id": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsRemoveTeamMemberRequest": {
+      "type": "object",
+      "properties": {
+        "team_id": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsResetPasswordRequest": {
+      "type": "object",
+      "properties": {
+        "login_id": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/ResetPasswordRequestResetType"
+        }
+      }
+    },
+    "accountsRevokeRequest": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string"
+        },
+        "role_id": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsSearchUsersRequest": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsTeam": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "owner_id": {
+          "type": "string"
+        },
+        "organization_id": {
+          "type": "string"
+        },
+        "create_at": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "accountsTeams": {
+      "type": "object",
+      "properties": {
+        "teams": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/accountsTeam"
+          }
+        }
+      }
+    },
+    "accountsUpdateOrganizationRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "owner_id": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsUpdatePasswordRequest": {
+      "type": "object",
+      "properties": {
+        "login_id": {
+          "type": "string"
+        },
+        "new_password": {
+          "type": "string"
+        },
+        "old_password": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsUpdateTeamRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "owner_id": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsUpdateUserRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "is_active": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "is_admin": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "create_at": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "accountsUsers": {
+      "type": "object",
+      "properties": {
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/accountsUser"
+          }
+        }
+      }
+    },
+    "accountsoperation": {
+      "type": "string",
+      "enum": [
+        "ACCOUNT_CREATE",
+        "ACCOUNT_DELETE",
+        "ACCOUNT_LIST",
+        "ACCOUNT_UPDATE",
+        "TEAM_CREATE",
+        "TEAM_DELETE",
+        "TEAM_LIST",
+        "TEAM_UPDATE",
+        "TEAM_ADD_MEMBER",
+        "TEAM_REMOVE_MEMBER",
+        "ORGANIZATION_CREATE",
+        "ORGANIZATION_DELETE",
+        "ORGANIZATION_LIST",
+        "ORGANIZATION_UPDATE",
+        "ORGANIZATION_ADD_MEMBER",
+        "ORGANIZATION_REMOVE_MEMBER",
+        "REPO_READ",
+        "REPO_WRITE"
+      ],
+      "default": "ACCOUNT_CREATE"
+    },
+    "accountsoperations": {
+      "type": "object",
+      "properties": {
+        "permissions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/accountsoperation"
+          }
+        }
+      }
+    },
+    "accountsrole": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/accountsROLE_TYPE"
+        },
+        "resource_id": {
+          "type": "string"
+        },
+        "operations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/accountsoperation"
+          }
+        }
+      }
+    },
+    "accountsroles": {
+      "type": "object",
+      "properties": {
+        "roles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/accountsrole"
+          }
+        }
+      }
+    }
+  }
+}

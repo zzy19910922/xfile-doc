@@ -1,0 +1,40 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "0.0.1",
+        "title": "fs"
+    },
+    "paths": {
+        "/fs/repos/:repo/files/:id": {
+            "get": {
+                "operationId": "Download",
+                "description": "download file or dir",
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/fs/repos/:repo/files/": {
+            "post": {
+                "operationId": "Upload",
+                "description": "upload file",
+                "parameters": [
+                    {
+                        "name": "path",
+                        "in": "query",
+                        "required": true,
+                        "description": "",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        }
+    }
+}

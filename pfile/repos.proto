@@ -1,0 +1,236 @@
+syntax = "proto3";
+
+package repos;
+
+import "google/api/annotations.proto";
+
+message Empty {}
+
+message FNode {
+    enum CryptoType {
+        NOCRYPTO = 0;
+        AES = 1;
+    }
+
+    enum HashType {
+        NOHASH = 0;
+        SHA1 = 1;
+    }
+
+    repeated string blocks = 1;
+    int64 size = 2;
+    int64 mtime = 3;
+    int64 block_size = 4;
+    CryptoType crypto_type = 5;
+    HashType hash_type = 6;
+}
+
+enum FileType {
+    FILE = 0;
+    DIR = 1;
+}
+message Entry {
+    string id = 1;
+    FileType type = 2;
+    int64 mtime = 3;
+    string commit_id = 4;
+}
+message DNode {
+    map<string, Entry> items = 1;
+    int64 size = 2;
+    int64 mtime = 3;
+}
+
+message Node {
+    string id = 1;
+    string name = 2;
+    FileType type = 3;
+    int64 size = 4;
+    int64 mtime = 5;
+    repeated Node children = 6;
+}
+
+message Nodes {
+    repeated Node nodes = 1;
+}
+
+enum Status {
+    PENDING = 0;
+    DOING = 1;
+    OK = 2;
+    FAILED = 3;
+}
+
+enum OP {
+    UNKNOWN = 0;
+    CREATE_FILE = 1;
+    CREATE_DIR = 2;
+    EDIT = 3;
+    DELETE = 4;
+    RENAME = 5;
+    MOVE = 6;
+    COPY = 7;
+}
+
+message Commit {
+    string id = 1;
+    string repo = 2;
+    string path = 3;
+    OP Operaion = 4;
+    string new_value = 5;
+    string old_value = 6;
+    string user_name = 7;
+    int64 ctime = 8;
+    int64 mtime = 9;
+
+    Status status = 10;
+    string last = 11;
+}
+
+message Commits {
+    repeated Commit commits = 1;
+}
+
+message CreateFileRequest {
+    string repo = 1;
+    string path = 2;
+    string file_id = 3;
+}
+
+message CreateDirRequest {
+    string repo = 1;
+    string path = 2;
+}
+
+message EditFileRequest {
+    string repo = 1;
+    string path = 2;
+    string file_id = 3;
+}
+
+message DeleteFileRequest {
+    string repo = 1;
+    string path = 2;
+}
+
+message RenameFileRequest {
+    string repo = 1;
+    string path = 2;
+    string newname = 3;
+}
+
+message MoveFileRequest {
+    string repo = 1;
+    string src_path = 3;
+    string dst_path = 4;
+}
+
+message CopyFileRequest {
+    string repo = 1;
+    string src_path = 3;
+    string dst_path = 4;
+}
+
+message ListDirRequest {
+    string repo = 1;
+    string path = 2;
+    bool recursion = 3;
+}
+
+message ListCommitsRequest {
+    string repo = 1;
+    string path = 2;
+    OP Operaion = 3;
+    string user_id = 4;
+    int64 since = 5;
+    Status status = 6;
+    int32 number = 7;
+}
+
+message ListFileHistoryRequest{
+    string repo = 1;
+    string path = 2;
+    int64 since = 3;
+    int32 number = 4;
+}
+
+message GetCommitRequest {
+    string id = 1;
+}
+
+message CreateFNodeReply {
+    string id = 1;
+}
+
+message CreateDNodeReply {
+    string id = 1;
+}
+
+message CreateRepoRequest {
+    string repo = 1;
+}
+
+message DeleteRepoRequest {
+    string repo = 1;
+}
+
+service RepoSrv {
+    rpc CreateFile(CreateFileRequest) returns (Commit){};
+    rpc CreateDir(CreateDirRequest) returns (Commit){
+        option (google.api.http) = {
+            post: "/v1/repos/dir"
+            body: "*"
+        };
+    };
+    rpc EditFile(EditFileRequest) returns (Commit){};
+    rpc ListDir(ListDirRequest) returns (Nodes){
+        option (google.api.http) = {
+            get: "/v1/repos/dir"
+        };
+    };
+    rpc DeleteFile(DeleteFileRequest) returns (Commit)
+    {
+        option (google.api.http) = {
+            delete: "/v1/repos/file"
+        };
+    };
+    rpc RenameFile(RenameFileRequest) returns (Commit){
+        option (google.api.http) = {
+            put: "/v1/repos/file/rename"
+            body: "*"
+        };
+    };
+    rpc MoveFile(MoveFileRequest) returns (Commit){
+        option (google.api.http) = {
+            put: "/v1/repos/file/move"
+            body: "*"
+        };
+    };
+    rpc CopyFile(CopyFileRequest) returns (Commit)
+    {
+        option (google.api.http) = {
+            put: "/v1/repos/file/copy"
+            body: "*"
+        };
+    };
+    rpc ListCommits(ListCommitsRequest) returns (Commits){
+        option (google.api.http) = {
+            get: "/v1/repos/commits"
+        };
+    };
+    rpc ListFileHistory(ListFileHistoryRequest) returns (Commits)
+    {
+        option (google.api.http) = {
+            get: "/v1/repos/file/history"
+        };
+    };
+    rpc GetCommit(GetCommitRequest) returns (Commit){
+        option (google.api.http) = {
+            get: "/v1/repos/commits/{id}"
+        };
+    };
+    rpc CreateFNode(FNode) returns (CreateFNodeReply);
+    rpc CreateDNode(DNode) returns (CreateDNodeReply);
+    rpc CreateRepo(CreateRepoRequest) returns (Empty);
+    rpc DeleteRepo(DeleteRepoRequest) returns (Empty);
+}

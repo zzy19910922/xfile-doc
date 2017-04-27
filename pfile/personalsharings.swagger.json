@@ -1,0 +1,299 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "personalsharings.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/personalsharings": {
+      "get": {
+        "operationId": "ListPersonalSharings",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/personalsharingsPersonalSharings"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "since",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "expired",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          }
+        ],
+        "tags": [
+          "PersonalSharingSrv"
+        ]
+      },
+      "post": {
+        "operationId": "CreatePersonalSharing",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/personalsharingsPersonalSharing"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/personalsharingsCreatePersonalSharingRequest"
+            }
+          }
+        ],
+        "tags": [
+          "PersonalSharingSrv"
+        ]
+      }
+    },
+    "/v1/personalsharings/{id}": {
+      "get": {
+        "operationId": "GetPersonalSharing",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/personalsharingsPersonalSharing"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "PersonalSharingSrv"
+        ]
+      },
+      "delete": {
+        "operationId": "DeletePersonalSharing",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/personalsharingsEmpty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "PersonalSharingSrv"
+        ]
+      },
+      "put": {
+        "operationId": "UpdatePersonalSharing",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/personalsharingsPersonalSharing"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/personalsharingsUpdatePersonalSharingRequest"
+            }
+          }
+        ],
+        "tags": [
+          "PersonalSharingSrv"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "personalsharingsCreatePersonalSharingRequest": {
+      "type": "object",
+      "properties": {
+        "to": {
+          "type": "string"
+        },
+        "filename": {
+          "type": "string"
+        },
+        "file_id": {
+          "type": "string"
+        },
+        "is_dir": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "expire": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "personalsharingsDeletePersonalSharingRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "personalsharingsEmpty": {
+      "type": "object"
+    },
+    "personalsharingsGetPersonalSharingRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "personalsharingsListPersonalSharingsRequest": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": "string"
+        },
+        "to": {
+          "type": "string"
+        },
+        "since": {
+          "type": "string",
+          "format": "int64"
+        },
+        "expired": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "personalsharingsPersonalSharing": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "from": {
+          "type": "string"
+        },
+        "to": {
+          "type": "string"
+        },
+        "filename": {
+          "type": "string"
+        },
+        "file_id": {
+          "type": "string"
+        },
+        "is_dir": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "expire": {
+          "type": "string",
+          "format": "int64"
+        },
+        "create_at": {
+          "type": "string",
+          "format": "int64"
+        },
+        "status": {
+          "$ref": "#/definitions/personalsharingsStatus"
+        }
+      }
+    },
+    "personalsharingsPersonalSharings": {
+      "type": "object",
+      "properties": {
+        "personalsharing": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/personalsharingsPersonalSharing"
+          }
+        }
+      }
+    },
+    "personalsharingsStatus": {
+      "type": "string",
+      "enum": [
+        "UNDEFINED",
+        "PENDING",
+        "OK",
+        "FAILED"
+      ],
+      "default": "UNDEFINED"
+    },
+    "personalsharingsUpdatePersonalSharingRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "filename": {
+          "type": "string"
+        },
+        "expire": {
+          "type": "string",
+          "format": "int64"
+        },
+        "status": {
+          "$ref": "#/definitions/personalsharingsStatus"
+        }
+      }
+    }
+  }
+}

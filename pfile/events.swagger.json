@@ -1,0 +1,258 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "events.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/events": {
+      "get": {
+        "operationId": "GetEvents",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/eventsevents"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "ACCOUNTS",
+              "ORGANIZATION",
+              "TEAM",
+              "REPO",
+              "PERSONALSHARING"
+            ],
+            "default": "ACCOUNTS"
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "since",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "EventSrv"
+        ]
+      },
+      "post": {
+        "operationId": "CreateEvents",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/eventsEmpty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/eventsCreateEventRequest"
+            }
+          }
+        ],
+        "tags": [
+          "EventSrv"
+        ]
+      }
+    },
+    "/v1/events/ack": {
+      "post": {
+        "operationId": "AcktEvents",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/eventsEmpty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/eventsAckEventsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "EventSrv"
+        ]
+      }
+    },
+    "/v1/events/{id}/ack": {
+      "post": {
+        "operationId": "AcktEvent",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/eventsEmpty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/eventsAckEventRequest"
+            }
+          }
+        ],
+        "tags": [
+          "EventSrv"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "eventsAckEventRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "eventsAckEventsRequest": {
+      "type": "object",
+      "properties": {
+        "util": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "eventsCreateEventRequest": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/eventsEVENT_TYPE"
+        },
+        "to": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "must_ack": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "eventsEVENT_TYPE": {
+      "type": "string",
+      "enum": [
+        "ACCOUNTS",
+        "ORGANIZATION",
+        "TEAM",
+        "REPO",
+        "PERSONALSHARING"
+      ],
+      "default": "ACCOUNTS"
+    },
+    "eventsEmpty": {
+      "type": "object"
+    },
+    "eventsGetEventsRequest": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/eventsEVENT_TYPE"
+        },
+        "to": {
+          "type": "string"
+        },
+        "since": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "eventsevent": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/eventsEVENT_TYPE"
+        },
+        "from": {
+          "type": "string"
+        },
+        "to": {
+          "type": "string"
+        },
+        "create_at": {
+          "type": "string",
+          "format": "int64"
+        },
+        "message": {
+          "type": "string"
+        },
+        "must_ack": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "got": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "eventsevents": {
+      "type": "object",
+      "properties": {
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/eventsevent"
+          }
+        }
+      }
+    }
+  }
+}
