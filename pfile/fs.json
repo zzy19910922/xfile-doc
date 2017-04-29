@@ -9,6 +9,15 @@
             "get": {
                 "operationId": "Download",
                 "description": "download file or dir",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "required": true,
+                        "description": "the file name",
+                        "type": "string"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": ""
@@ -29,6 +38,28 @@
                         "type": "string"
                     }
                 ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/fs/avatar/:id": {
+            "get": {
+                "operationId": "Download Avatar",
+                "description": "download avatar",
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/fs/avatar/:profile": {
+            "post": {
+                "operationId": "Upload Avatar",
+                "description": "upload avatar",
                 "responses": {
                     "200": {
                         "description": ""

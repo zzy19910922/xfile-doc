@@ -26,6 +26,40 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "phone",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "is_active",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          },
+          {
+            "name": "is_not_admin",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          }
+        ],
         "tags": [
           "AccountSrv"
         ]
@@ -416,7 +450,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/accountsUsers"
+              "$ref": "#/definitions/accountsMembers"
             }
           }
         },
@@ -434,6 +468,34 @@
       }
     },
     "/v1/organizations/{organization_id}/members/{user_id}": {
+      "get": {
+        "operationId": "GetOrganizationMember",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsMember"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      },
       "delete": {
         "operationId": "RemoveOrganizationMember",
         "responses": {
@@ -702,6 +764,38 @@
         ]
       }
     },
+    "/v1/profiles/{id}": {
+      "put": {
+        "operationId": "UpdateProfile",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsProfile"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/accountsUpdateProfileRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      }
+    },
     "/v1/teams": {
       "get": {
         "operationId": "ListTeams",
@@ -833,7 +927,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/accountsUsers"
+              "$ref": "#/definitions/accountsMembers"
             }
           }
         },
@@ -851,6 +945,34 @@
       }
     },
     "/v1/teams/{team_id}/members/{user_id}": {
+      "get": {
+        "operationId": "GetTeamMember",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsMember"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "team_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      },
       "delete": {
         "operationId": "RemoveTeamMember",
         "responses": {
@@ -1055,10 +1177,32 @@
     "accountsEmpty": {
       "type": "object"
     },
+    "accountsGetOrganizationMemberRequest": {
+      "type": "object",
+      "properties": {
+        "organization_id": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        }
+      }
+    },
     "accountsGetOrganizationRequest": {
       "type": "object",
       "properties": {
         "id": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsGetTeamMemberRequest": {
+      "type": "object",
+      "properties": {
+        "team_id": {
+          "type": "string"
+        },
+        "user_id": {
           "type": "string"
         }
       }
@@ -1147,6 +1291,28 @@
         }
       }
     },
+    "accountsListUsersRequest": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "is_active": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "is_not_admin": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
     "accountsLoginReply": {
       "type": "object",
       "properties": {
@@ -1180,6 +1346,28 @@
         }
       }
     },
+    "accountsMember": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/accountsUser"
+        },
+        "profile": {
+          "$ref": "#/definitions/accountsProfile"
+        }
+      }
+    },
+    "accountsMembers": {
+      "type": "object",
+      "properties": {
+        "members": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/accountsMember"
+          }
+        }
+      }
+    },
     "accountsOrganization": {
       "type": "object",
       "properties": {
@@ -1209,6 +1397,29 @@
           "items": {
             "$ref": "#/definitions/accountsOrganization"
           }
+        }
+      }
+    },
+    "accountsProfile": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
         }
       }
     },
@@ -1343,6 +1554,26 @@
         }
       }
     },
+    "accountsUpdateProfileRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      }
+    },
     "accountsUpdateTeamRequest": {
       "type": "object",
       "properties": {
@@ -1389,12 +1620,6 @@
         "password": {
           "type": "string"
         },
-        "email": {
-          "type": "string"
-        },
-        "phone": {
-          "type": "string"
-        },
         "is_active": {
           "type": "boolean",
           "format": "boolean"
@@ -1406,6 +1631,12 @@
         "create_at": {
           "type": "string",
           "format": "int64"
+        },
+        "profile_id": {
+          "type": "string"
+        },
+        "profile": {
+          "$ref": "#/definitions/accountsProfile"
         }
       }
     },
