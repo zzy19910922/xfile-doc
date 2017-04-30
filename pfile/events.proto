@@ -66,14 +66,14 @@ service EventSrv {
         };
     };
 
-    rpc AcktEvent(AckEventRequest) returns (Empty){
+    rpc AckEvent(AckEventRequest) returns (Empty){
         option (google.api.http) = {
             post: "/v1/events/{id}/ack"
             body: "*"
         };
     };
 
-    rpc  AcktEvents(AckEventsRequest) returns (Empty){
+    rpc  AckEvents(AckEventsRequest) returns (Empty){
         option (google.api.http) = {
             post: "/v1/events/ack"
             body: "*"

@@ -86,7 +86,7 @@
     },
     "/v1/events/ack": {
       "post": {
-        "operationId": "AcktEvents",
+        "operationId": "AckEvents",
         "responses": {
           "200": {
             "description": "",
@@ -112,7 +112,7 @@
     },
     "/v1/events/{id}/ack": {
       "post": {
-        "operationId": "AcktEvent",
+        "operationId": "AckEvent",
         "responses": {
           "200": {
             "description": "",

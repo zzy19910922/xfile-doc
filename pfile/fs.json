@@ -7,8 +7,28 @@
     "paths": {
         "/fs/repos/:repo/files/:id": {
             "get": {
-                "operationId": "Download",
-                "description": "download file or dir",
+                "operationId": "DownloadFile",
+                "description": "download file",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "required": true,
+                        "description": "the file name",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/fs/repos/:repo/dirs/:id": {
+            "get": {
+                "operationId": "DownloadDir",
+                "description": "download dir",
                 "parameters": [
                     {
                         "name": "name",
@@ -56,7 +76,7 @@
                 }
             }
         },
-        "/fs/avatar/:profile": {
+        "/fs/avatar/:id": {
             "post": {
                 "operationId": "Upload Avatar",
                 "description": "upload avatar",
