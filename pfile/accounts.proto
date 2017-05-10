@@ -512,46 +512,46 @@ service AccountSrv {
 
     rpc CreateRole(CreateRoleRequest) returns (role) {
         option (google.api.http) = {
-            post: "/v1/permission/roles"
+            post: "/v1/permissions/roles"
             body: "*"
         };
     };
 
     rpc ListRoles(ListRolesRequest) returns (roles){
         option (google.api.http) = {
-            get: "/v1/permission/roles"
+            get: "/v1/permissions/roles"
         };
     };
 
     rpc DeleteRole(DeleteRoleRequest) returns (Empty) {
         option (google.api.http) = {
-            delete: "/v1/permission/roles/{id}"
+            delete: "/v1/permissions/roles/{id}"
         };
     };
 
     rpc Grant(GrantRequest) returns (Empty){
         option (google.api.http) = {
-            post: "/v1/permission/grant"
+            post: "/v1/permissions/grant"
             body: "*"
         };
     };
 
     rpc Revoke(RevokeRequest) returns (Empty){
         option (google.api.http) = {
-            post: "/v1/permission/revoke"
+            post: "/v1/permissions/revoke"
             body: "*"
         };
     };
 
     rpc GetUserRoles(GetUserRoleRequest) returns (roles){
         option (google.api.http) = {
-            get: "/v1/permission/users/{user_id}/roles"
+            get: "/v1/permissions/users/{user_id}/roles"
         };
     };
 
     rpc ListRoleTypeOperations(ListRoleTypeOperationsRequest) returns (operations){
         option (google.api.http) = {
-            get: "/v1/permission/roles/operations"
+            get: "/v1/permissions/roles/operations"
         };
     };
 }

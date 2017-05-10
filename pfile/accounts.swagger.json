@@ -553,7 +553,7 @@
         ]
       }
     },
-    "/v1/permission/grant": {
+    "/v1/permissions/grant": {
       "post": {
         "operationId": "Grant",
         "responses": {
@@ -579,7 +579,7 @@
         ]
       }
     },
-    "/v1/permission/revoke": {
+    "/v1/permissions/revoke": {
       "post": {
         "operationId": "Revoke",
         "responses": {
@@ -605,7 +605,7 @@
         ]
       }
     },
-    "/v1/permission/roles": {
+    "/v1/permissions/roles": {
       "get": {
         "operationId": "ListRoles",
         "responses": {
@@ -666,7 +666,7 @@
         ]
       }
     },
-    "/v1/permission/roles/operations": {
+    "/v1/permissions/roles/operations": {
       "get": {
         "operationId": "ListRoleTypeOperations",
         "responses": {
@@ -697,7 +697,7 @@
         ]
       }
     },
-    "/v1/permission/roles/{id}": {
+    "/v1/permissions/roles/{id}": {
       "delete": {
         "operationId": "DeleteRole",
         "responses": {
@@ -721,7 +721,7 @@
         ]
       }
     },
-    "/v1/permission/users/{user_id}/roles": {
+    "/v1/permissions/users/{user_id}/roles": {
       "get": {
         "operationId": "GetUserRoles",
         "responses": {

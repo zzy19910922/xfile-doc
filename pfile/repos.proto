@@ -162,6 +162,10 @@ message CreateFNodeReply {
     string id = 1;
 }
 
+message GetFNodeRequest {
+    string id = 1;
+}
+
 message CreateDNodeReply {
     string id = 1;
 }
@@ -230,6 +234,7 @@ service RepoSrv {
         };
     };
     rpc CreateFNode(FNode) returns (CreateFNodeReply);
+    rpc GetFNode(GetFNodeRequest) returns (FNode);
     rpc CreateDNode(DNode) returns (CreateDNodeReply);
     rpc CreateRepo(CreateRepoRequest) returns (Empty);
     rpc DeleteRepo(DeleteRepoRequest) returns (Empty);
