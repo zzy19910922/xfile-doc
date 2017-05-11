@@ -15,7 +15,31 @@
     "application/json"
   ],
   "paths": {
-    "/v1/repos/commits": {
+    "/v1/repos/commits/{id}": {
+      "get": {
+        "operationId": "GetCommit",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/reposCommit"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "RepoSrv"
+        ]
+      }
+    },
+    "/v1/repos/{repo}/commits": {
       "get": {
         "operationId": "ListCommits",
         "responses": {
@@ -29,8 +53,8 @@
         "parameters": [
           {
             "name": "repo",
-            "in": "query",
-            "required": false,
+            "in": "path",
+            "required": true,
             "type": "string"
           },
           {
@@ -95,31 +119,7 @@
         ]
       }
     },
-    "/v1/repos/commits/{id}": {
-      "get": {
-        "operationId": "GetCommit",
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/reposCommit"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "RepoSrv"
-        ]
-      }
-    },
-    "/v1/repos/dir": {
+    "/v1/repos/{repo}/dirs": {
       "get": {
         "operationId": "ListDir",
         "responses": {
@@ -133,8 +133,8 @@
         "parameters": [
           {
             "name": "repo",
-            "in": "query",
-            "required": false,
+            "in": "path",
+            "required": true,
             "type": "string"
           },
           {
@@ -167,6 +167,12 @@
         },
         "parameters": [
           {
+            "name": "repo",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
             "name": "body",
             "in": "body",
             "required": true,
@@ -180,7 +186,7 @@
         ]
       }
     },
-    "/v1/repos/file": {
+    "/v1/repos/{repo}/files": {
       "delete": {
         "operationId": "DeleteFile",
         "responses": {
@@ -191,12 +197,20 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "repo",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "tags": [
           "RepoSrv"
         ]
       }
     },
-    "/v1/repos/file/copy": {
+    "/v1/repos/{repo}/files/copy": {
       "put": {
         "operationId": "CopyFile",
         "responses": {
@@ -208,6 +222,12 @@
           }
         },
         "parameters": [
+          {
+            "name": "repo",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "body",
             "in": "body",
@@ -222,7 +242,7 @@
         ]
       }
     },
-    "/v1/repos/file/history": {
+    "/v1/repos/{repo}/files/history": {
       "get": {
         "operationId": "ListFileHistory",
         "responses": {
@@ -236,8 +256,8 @@
         "parameters": [
           {
             "name": "repo",
-            "in": "query",
-            "required": false,
+            "in": "path",
+            "required": true,
             "type": "string"
           },
           {
@@ -266,7 +286,7 @@
         ]
       }
     },
-    "/v1/repos/file/move": {
+    "/v1/repos/{repo}/files/move": {
       "put": {
         "operationId": "MoveFile",
         "responses": {
@@ -278,6 +298,12 @@
           }
         },
         "parameters": [
+          {
+            "name": "repo",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "body",
             "in": "body",
@@ -292,7 +318,7 @@
         ]
       }
     },
-    "/v1/repos/file/rename": {
+    "/v1/repos/{repo}/files/rename": {
       "put": {
         "operationId": "RenameFile",
         "responses": {
@@ -304,6 +330,12 @@
           }
         },
         "parameters": [
+          {
+            "name": "repo",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "body",
             "in": "body",
@@ -442,14 +474,6 @@
         }
       }
     },
-    "reposCreateRepoRequest": {
-      "type": "object",
-      "properties": {
-        "repo": {
-          "type": "string"
-        }
-      }
-    },
     "reposDNode": {
       "type": "object",
       "properties": {
@@ -480,14 +504,6 @@
         }
       }
     },
-    "reposDeleteRepoRequest": {
-      "type": "object",
-      "properties": {
-        "repo": {
-          "type": "string"
-        }
-      }
-    },
     "reposEditFileRequest": {
       "type": "object",
       "properties": {
@@ -501,9 +517,6 @@
           "type": "string"
         }
       }
-    },
-    "reposEmpty": {
-      "type": "object"
     },
     "reposEntry": {
       "type": "object",
@@ -569,6 +582,14 @@
       }
     },
     "reposGetFNodeRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "reposGetRepoRequest": {
       "type": "object",
       "properties": {
         "id": {
@@ -719,6 +740,22 @@
         }
       }
     },
+    "reposRepo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "read_only": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "mtime": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
     "reposStatus": {
       "type": "string",
       "enum": [
@@ -728,6 +765,18 @@
         "FAILED"
       ],
       "default": "PENDING"
+    },
+    "reposUpdateRepoRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "read_only": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
     }
   }
 }

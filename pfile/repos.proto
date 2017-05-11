@@ -6,6 +6,12 @@ import "google/api/annotations.proto";
 
 message Empty {}
 
+message Repo {
+    string id = 1;
+    bool   read_only = 2;
+    int64  mtime = 3;
+}
+
 message FNode {
     enum CryptoType {
         NOCRYPTO = 0;
@@ -170,62 +176,63 @@ message CreateDNodeReply {
     string id = 1;
 }
 
-message CreateRepoRequest {
-    string repo = 1;
+message GetRepoRequest {
+    string id = 1;
 }
 
-message DeleteRepoRequest {
-    string repo = 1;
+message UpdateRepoRequest {
+    string id = 1;
+    bool read_only = 2;
 }
 
 service RepoSrv {
     rpc CreateFile(CreateFileRequest) returns (Commit){};
     rpc CreateDir(CreateDirRequest) returns (Commit){
         option (google.api.http) = {
-            post: "/v1/repos/dir"
+            post: "/v1/repos/{repo}/dirs"
             body: "*"
         };
     };
     rpc EditFile(EditFileRequest) returns (Commit){};
     rpc ListDir(ListDirRequest) returns (Nodes){
         option (google.api.http) = {
-            get: "/v1/repos/dir"
+            get: "/v1/repos/{repo}/dirs"
         };
     };
     rpc DeleteFile(DeleteFileRequest) returns (Commit)
     {
         option (google.api.http) = {
-            delete: "/v1/repos/file"
+            delete: "/v1/repos/{repo}/files"
         };
     };
     rpc RenameFile(RenameFileRequest) returns (Commit){
         option (google.api.http) = {
-            put: "/v1/repos/file/rename"
+            put: "/v1/repos/{repo}/files/rename"
             body: "*"
         };
     };
     rpc MoveFile(MoveFileRequest) returns (Commit){
         option (google.api.http) = {
-            put: "/v1/repos/file/move"
+            put: "/v1/repos/{repo}/files/move"
             body: "*"
         };
     };
     rpc CopyFile(CopyFileRequest) returns (Commit)
     {
         option (google.api.http) = {
-            put: "/v1/repos/file/copy"
+            put: "/v1/repos/{repo}/files/copy"
             body: "*"
         };
     };
     rpc ListCommits(ListCommitsRequest) returns (Commits){
         option (google.api.http) = {
-            get: "/v1/repos/commits"
+            get: "/v1/repos/{repo}/commits"
         };
     };
     rpc ListFileHistory(ListFileHistoryRequest) returns (Commits)
     {
         option (google.api.http) = {
-            get: "/v1/repos/file/history"
+            get: "/v1/repos/{repo}/files/history"
         };
     };
     rpc GetCommit(GetCommitRequest) returns (Commit){
@@ -236,6 +243,6 @@ service RepoSrv {
     rpc CreateFNode(FNode) returns (CreateFNodeReply);
     rpc GetFNode(GetFNodeRequest) returns (FNode);
     rpc CreateDNode(DNode) returns (CreateDNodeReply);
-    rpc CreateRepo(CreateRepoRequest) returns (Empty);
-    rpc DeleteRepo(DeleteRepoRequest) returns (Empty);
+    rpc GetRepo(GetRepoRequest) returns (Repo);
+    rpc UpdateRepo(UpdateRepoRequest) returns (Repo);
 }
