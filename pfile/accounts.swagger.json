@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "accounts.proto",
+    "title": "pfile/protos/accounts/accounts.proto",
     "version": "version not set"
   },
   "schemes": [
@@ -368,13 +368,13 @@
       }
     },
     "/v1/organizations/{id}": {
-      "delete": {
-        "operationId": "DeleteOrganization",
+      "get": {
+        "operationId": "GetOrganization",
         "responses": {
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/accountsEmpty"
+              "$ref": "#/definitions/accountsOrganization"
             }
           }
         },
@@ -390,13 +390,13 @@
           "AccountSrv"
         ]
       },
-      "post": {
-        "operationId": "GetOrganization",
+      "delete": {
+        "operationId": "DeleteOrganization",
         "responses": {
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/accountsOrganization"
+              "$ref": "#/definitions/accountsEmpty"
             }
           }
         },
@@ -546,6 +546,50 @@
             "in": "path",
             "required": true,
             "type": "string"
+          }
+        ],
+        "tags": [
+          "AccountSrv"
+        ]
+      }
+    },
+    "/v1/organizations/{organization_id}/members/{user_id}/profiles/{id}": {
+      "put": {
+        "operationId": "UpdateProfile",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsProfile"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/accountsUpdateProfileRequest"
+            }
           }
         ],
         "tags": [
@@ -757,38 +801,6 @@
             "in": "query",
             "required": false,
             "type": "string"
-          }
-        ],
-        "tags": [
-          "AccountSrv"
-        ]
-      }
-    },
-    "/v1/profiles/{id}": {
-      "put": {
-        "operationId": "UpdateProfile",
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/accountsProfile"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/accountsUpdateProfileRequest"
-            }
           }
         ],
         "tags": [
@@ -1082,9 +1094,6 @@
         },
         "description": {
           "type": "string"
-        },
-        "owner_id": {
-          "type": "string"
         }
       }
     },
@@ -1192,6 +1201,17 @@
       "type": "object",
       "properties": {
         "id": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsGetPublicKeyRequest": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string"
+        },
+        "device": {
           "type": "string"
         }
       }
@@ -1423,6 +1443,39 @@
         }
       }
     },
+    "accountsPublicKey": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "format": "byte"
+        },
+        "type": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        },
+        "device": {
+          "type": "string"
+        },
+        "create_at": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "accountsPublicKeys": {
+      "type": "object",
+      "properties": {
+        "public_keys": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/accountsPublicKey"
+          }
+        }
+      }
+    },
     "accountsROLE_TYPE": {
       "type": "string",
       "enum": [
@@ -1557,6 +1610,12 @@
     "accountsUpdateProfileRequest": {
       "type": "object",
       "properties": {
+        "organization_id": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        },
         "id": {
           "type": "string"
         },
@@ -1597,13 +1656,25 @@
         "id": {
           "type": "string"
         },
-        "username": {
-          "type": "string"
-        },
         "email": {
           "type": "string"
         },
         "phone": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsUploadPublicKeyRequest": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "format": "byte"
+        },
+        "type": {
+          "type": "string"
+        },
+        "device": {
           "type": "string"
         }
       }
@@ -1654,26 +1725,34 @@
     "accountsoperation": {
       "type": "string",
       "enum": [
+        "UNDEFINED",
         "ACCOUNT_CREATE",
         "ACCOUNT_DELETE",
         "ACCOUNT_LIST",
         "ACCOUNT_UPDATE",
+        "ACCOUNT_GET",
         "TEAM_CREATE",
         "TEAM_DELETE",
         "TEAM_LIST",
         "TEAM_UPDATE",
+        "TEAM_GET",
         "TEAM_ADD_MEMBER",
         "TEAM_REMOVE_MEMBER",
+        "TEAM_LIST_MEMBER",
+        "TEAM_GET_MEMBER",
         "ORGANIZATION_CREATE",
         "ORGANIZATION_DELETE",
         "ORGANIZATION_LIST",
         "ORGANIZATION_UPDATE",
+        "ORGANIZATION_GET",
         "ORGANIZATION_ADD_MEMBER",
         "ORGANIZATION_REMOVE_MEMBER",
+        "ORGANIZATION_LIST_MEMBER",
+        "ORGANIZATION_GET_MEMBER",
         "REPO_READ",
         "REPO_WRITE"
       ],
-      "default": "ACCOUNT_CREATE"
+      "default": "UNDEFINED"
     },
     "accountsoperations": {
       "type": "object",
@@ -1683,6 +1762,14 @@
           "items": {
             "$ref": "#/definitions/accountsoperation"
           }
+        }
+      }
+    },
+    "accountspermission": {
+      "type": "object",
+      "properties": {
+        "operation": {
+          "$ref": "#/definitions/accountsoperation"
         }
       }
     },
@@ -1701,10 +1788,10 @@
         "resource_id": {
           "type": "string"
         },
-        "operations": {
+        "permissions": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/accountsoperation"
+            "$ref": "#/definitions/accountspermission"
           }
         }
       }

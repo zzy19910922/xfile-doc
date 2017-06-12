@@ -10,6 +10,18 @@ message Repo {
     string id = 1;
     bool   read_only = 2;
     int64  mtime = 3;
+    bool   encrypted = 4;
+}
+
+message RepoPassword {
+    string repo_id = 1;
+    int64 index = 2;
+    string magic = 3;
+    int64 create_at = 4;
+}
+
+message RepoPasswords {
+    repeated RepoPassword repo_passwords = 1;
 }
 
 message FNode {
@@ -60,6 +72,12 @@ message Nodes {
     repeated Node nodes = 1;
 }
 
+message Stat {
+    int64 size = 1;
+    int64 mtime = 2;
+    bool is_dir = 3;
+}
+
 enum Status {
     PENDING = 0;
     DOING = 1;
@@ -81,16 +99,17 @@ enum OP {
 message Commit {
     string id = 1;
     string repo = 2;
-    string path = 3;
-    OP Operaion = 4;
-    string new_value = 5;
-    string old_value = 6;
-    string user_name = 7;
-    int64 ctime = 8;
-    int64 mtime = 9;
+    string parent = 3;
+    string basename = 4;
+    OP Operaion = 5;
+    string new_value = 6;
+    string old_value = 7;
+    string user_name = 8;
+    int64 ctime = 9;
+    int64 mtime = 10;
 
-    Status status = 10;
-    string last = 11;
+    Status status = 11;
+    string last = 12;
 }
 
 message Commits {
@@ -101,6 +120,11 @@ message CreateFileRequest {
     string repo = 1;
     string path = 2;
     string file_id = 3;
+}
+
+message StatFileRequest {
+    string repo = 1;
+    string path = 2;
 }
 
 message CreateDirRequest {
@@ -117,6 +141,11 @@ message EditFileRequest {
 message DeleteFileRequest {
     string repo = 1;
     string path = 2;
+}
+
+message DeleteFilesRequest {
+    string repo = 1;
+    repeated string paths = 2;
 }
 
 message RenameFileRequest {
@@ -151,6 +180,7 @@ message ListCommitsRequest {
     int64 since = 5;
     Status status = 6;
     int32 number = 7;
+        bool recursion = 8;
 }
 
 message ListFileHistoryRequest{
@@ -185,8 +215,20 @@ message UpdateRepoRequest {
     bool read_only = 2;
 }
 
+message GetRepoPasswordsRequest {
+    string repo = 1;
+    int64 mtime = 2;
+    int64 limit = 3;
+}
+
+message ResetRepoPasswordRequest {
+    string repo = 1;
+    string password = 2;
+}
+
 service RepoSrv {
     rpc CreateFile(CreateFileRequest) returns (Commit){};
+    rpc StatFile(StatFileRequest) returns (Stat){};
     rpc CreateDir(CreateDirRequest) returns (Commit){
         option (google.api.http) = {
             post: "/v1/repos/{repo}/dirs"
@@ -203,6 +245,13 @@ service RepoSrv {
     {
         option (google.api.http) = {
             delete: "/v1/repos/{repo}/files"
+        };
+    };
+    rpc DeleteFiles(DeleteFilesRequest) returns (Commits)
+    {
+        option (google.api.http) = {
+            post: "/v1/repos/{repo}/files"
+            body: "*"
         };
     };
     rpc RenameFile(RenameFileRequest) returns (Commit){
@@ -244,5 +293,7 @@ service RepoSrv {
     rpc GetFNode(GetFNodeRequest) returns (FNode);
     rpc CreateDNode(DNode) returns (CreateDNodeReply);
     rpc GetRepo(GetRepoRequest) returns (Repo);
+    rpc GetRepoPasswords(GetRepoPasswordsRequest) returns (RepoPasswords);
+    rpc ResetRepoPassword(ResetRepoPasswordRequest) returns (RepoPassword);
     rpc UpdateRepo(UpdateRepoRequest) returns (Repo);
 }

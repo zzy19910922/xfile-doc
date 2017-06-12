@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "repos.proto",
+    "title": "pfile/protos/repos/repos.proto",
     "version": "version not set"
   },
   "schemes": [
@@ -112,6 +112,13 @@
             "required": false,
             "type": "integer",
             "format": "int32"
+          },
+          {
+            "name": "recursion",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
           }
         ],
         "tags": [
@@ -203,6 +210,36 @@
             "in": "path",
             "required": true,
             "type": "string"
+          }
+        ],
+        "tags": [
+          "RepoSrv"
+        ]
+      },
+      "post": {
+        "operationId": "DeleteFiles",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/reposCommits"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "repo",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/reposDeleteFilesRequest"
+            }
           }
         ],
         "tags": [
@@ -377,7 +414,10 @@
         "repo": {
           "type": "string"
         },
-        "path": {
+        "parent": {
+          "type": "string"
+        },
+        "basename": {
           "type": "string"
         },
         "Operaion": {
@@ -504,6 +544,20 @@
         }
       }
     },
+    "reposDeleteFilesRequest": {
+      "type": "object",
+      "properties": {
+        "repo": {
+          "type": "string"
+        },
+        "paths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "reposEditFileRequest": {
       "type": "object",
       "properties": {
@@ -589,6 +643,22 @@
         }
       }
     },
+    "reposGetRepoPasswordsRequest": {
+      "type": "object",
+      "properties": {
+        "repo": {
+          "type": "string"
+        },
+        "mtime": {
+          "type": "string",
+          "format": "int64"
+        },
+        "limit": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
     "reposGetRepoRequest": {
       "type": "object",
       "properties": {
@@ -622,6 +692,10 @@
         "number": {
           "type": "integer",
           "format": "int32"
+        },
+        "recursion": {
+          "type": "boolean",
+          "format": "boolean"
         }
       }
     },
@@ -753,6 +827,79 @@
         "mtime": {
           "type": "string",
           "format": "int64"
+        },
+        "encrypted": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "reposRepoPassword": {
+      "type": "object",
+      "properties": {
+        "repo_id": {
+          "type": "string"
+        },
+        "index": {
+          "type": "string",
+          "format": "int64"
+        },
+        "magic": {
+          "type": "string"
+        },
+        "create_at": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "reposRepoPasswords": {
+      "type": "object",
+      "properties": {
+        "repo_passwords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/reposRepoPassword"
+          }
+        }
+      }
+    },
+    "reposResetRepoPasswordRequest": {
+      "type": "object",
+      "properties": {
+        "repo": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "reposStat": {
+      "type": "object",
+      "properties": {
+        "size": {
+          "type": "string",
+          "format": "int64"
+        },
+        "mtime": {
+          "type": "string",
+          "format": "int64"
+        },
+        "is_dir": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "reposStatFileRequest": {
+      "type": "object",
+      "properties": {
+        "repo": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
         }
       }
     },

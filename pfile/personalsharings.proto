@@ -23,6 +23,7 @@ message PersonalSharing {
     int64 expire = 7;
     int64 create_at = 8;
     Status status = 9;
+    bytes keys = 10;
 }
 
 message PersonalSharings {
@@ -35,6 +36,7 @@ message CreatePersonalSharingRequest {
     string file_id = 3;
     bool is_dir = 4;
     int64 expire = 5;
+    bytes keys = 6;
 }
 
 message UpdatePersonalSharingRequest {
@@ -45,10 +47,11 @@ message UpdatePersonalSharingRequest {
 }
 
 message ListPersonalSharingsRequest {
-        string from = 1;
-        string to = 2;
-        int64 since = 4;
-        bool expired = 5;
+    string from = 1;
+    string to = 2;
+    int64 since = 3;
+    bool expired = 4;
+    bytes keys = 5;
 }
 
 message GetPersonalSharingRequest {

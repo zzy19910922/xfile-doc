@@ -1,0 +1,210 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "pfile/protos/daemon/daemon.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {},
+  "definitions": {
+    "clientsCreateRepoRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        }
+      }
+    },
+    "clientsDeleteRepoRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "clientsEmpty": {
+      "type": "object"
+    },
+    "clientsGetRepoAutoSyncReply": {
+      "type": "object",
+      "properties": {
+        "repo": {
+          "type": "string"
+        },
+        "auto_sync": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "clientsGetRepoAutoSyncRequest": {
+      "type": "object",
+      "properties": {
+        "repo": {
+          "type": "string"
+        }
+      }
+    },
+    "clientsRateLimit": {
+      "type": "object",
+      "properties": {
+        "upload": {
+          "type": "string",
+          "format": "int64"
+        },
+        "download": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "clientsReceivePersonalSharingRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "clientsResetRepoPasswordReply": {
+      "type": "object",
+      "properties": {
+        "repo": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "clientsResetRepoPasswordRequest": {
+      "type": "object",
+      "properties": {
+        "repo": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "clientsSendPersonalSharingRequest": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "expire": {
+          "type": "string",
+          "format": "int64"
+        },
+        "encrypted": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "clientsSetRepoAutoSyncRequest": {
+      "type": "object",
+      "properties": {
+        "repo": {
+          "type": "string"
+        },
+        "auto_sync": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "clientsSyncRepoRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        }
+      }
+    },
+    "clientsUpdateRepoRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        }
+      }
+    },
+    "personalsharingsPersonalSharing": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "from": {
+          "type": "string"
+        },
+        "to": {
+          "type": "string"
+        },
+        "filename": {
+          "type": "string"
+        },
+        "file_id": {
+          "type": "string"
+        },
+        "is_dir": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "expire": {
+          "type": "string",
+          "format": "int64"
+        },
+        "create_at": {
+          "type": "string",
+          "format": "int64"
+        },
+        "status": {
+          "$ref": "#/definitions/personalsharingsStatus"
+        },
+        "keys": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "personalsharingsStatus": {
+      "type": "string",
+      "enum": [
+        "UNDEFINED",
+        "PENDING",
+        "OK",
+        "FAILED"
+      ],
+      "default": "UNDEFINED"
+    }
+  }
+}

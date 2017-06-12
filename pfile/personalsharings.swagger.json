@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "personalsharings.proto",
+    "title": "pfile/protos/personalsharings/personalsharings.proto",
     "version": "version not set"
   },
   "schemes": [
@@ -52,6 +52,13 @@
             "required": false,
             "type": "boolean",
             "format": "boolean"
+          },
+          {
+            "name": "keys",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "byte"
           }
         ],
         "tags": [
@@ -180,6 +187,10 @@
         "expire": {
           "type": "string",
           "format": "int64"
+        },
+        "keys": {
+          "type": "string",
+          "format": "byte"
         }
       }
     },
@@ -218,6 +229,10 @@
         "expired": {
           "type": "boolean",
           "format": "boolean"
+        },
+        "keys": {
+          "type": "string",
+          "format": "byte"
         }
       }
     },
@@ -253,6 +268,10 @@
         },
         "status": {
           "$ref": "#/definitions/personalsharingsStatus"
+        },
+        "keys": {
+          "type": "string",
+          "format": "byte"
         }
       }
     },

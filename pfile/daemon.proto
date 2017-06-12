@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package clients;
+
+import "pfile/protos/personalsharings/personalsharings.proto";
+
+message Empty {}
+
+message CreateRepoRequest {
+    string id = 1;
+    string path = 2;
+}
+
+message UpdateRepoRequest {
+    string id = 1;
+    string path = 2;
+}
+
+message DeleteRepoRequest {
+    string id = 1;
+}
+
+message SyncRepoRequest {
+    string id = 1;
+    string path = 2;
+}
+
+message SendPersonalSharingRequest {
+    string username = 1;
+    string user_id = 2;
+    string path = 3;
+    int64 expire = 4;
+    bool encrypted = 5;
+}
+
+message ReceivePersonalSharingRequest {
+    string id = 1;
+}
+
+message RateLimit {
+    int64 upload = 1;
+    int64 download = 2;
+}
+
+message ResetRepoPasswordRequest {
+    string repo = 1;
+    string password = 2;
+}
+
+message ResetRepoPasswordReply {
+    string repo = 1;
+    string password = 2;
+}
+
+message GetRepoAutoSyncRequest {
+    string repo = 1;
+}
+
+message GetRepoAutoSyncReply {
+    string repo = 1;
+    bool auto_sync = 2;
+}
+
+message SetRepoAutoSyncRequest {
+    string repo = 1;
+    bool auto_sync = 2;
+}
+
+service DaemonSrv {
+    rpc CreateRepo(CreateRepoRequest) returns (Empty) {};
+    rpc UpdateRepo(UpdateRepoRequest) returns (Empty) {};
+    rpc DeleteRepo(DeleteRepoRequest) returns (Empty) {};
+    rpc ResetRepoPassword(ResetRepoPasswordRequest) returns (ResetRepoPasswordReply) {};
+    rpc SyncRepo(SyncRepoRequest) returns (Empty) {};
+    rpc SetRepoAutoSync(SetRepoAutoSyncRequest) returns (Empty) {};
+    rpc GetRepoAutoSync(GetRepoAutoSyncRequest) returns (GetRepoAutoSyncReply) {};
+    rpc SendPersonalSharing(SendPersonalSharingRequest) returns (personalsharings.PersonalSharing) {};
+    rpc ReceivePersonalSharing(ReceivePersonalSharingRequest) returns (Empty) {};
+    rpc GetRateLimit(Empty) returns (RateLimit) {};
+    rpc SetRateLimit(RateLimit) returns (Empty) {};
+}

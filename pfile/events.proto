@@ -8,11 +8,14 @@ message Empty {}
 
 
 enum EVENT_TYPE {
-    ACCOUNTS = 0;
-    ORGANIZATION = 1;
-    TEAM = 2;
-    REPO = 3;
-    PERSONALSHARING = 4;
+    ALL = 0;
+    ACCOUNTS = 1;
+    ORGANIZATION = 2;
+    TEAM = 3;
+    REPO = 4;
+    PERSONALSHARING = 5;
+    MESSAGE = 6;
+    INTERNAL = 7;
 }
 
 message event {
@@ -49,11 +52,11 @@ message AckEventRequest {
 }
 
 message AckEventsRequest {
-    int64 util = 1;
+    int64 until = 1;
 }
 
 service EventSrv {
-    rpc CreateEvents(CreateEventRequest) returns (Empty) {
+    rpc CreateEvent(CreateEventRequest) returns (Empty) {
         option (google.api.http) = {
             post: "/v1/events"
             body: "*"
@@ -73,7 +76,7 @@ service EventSrv {
         };
     };
 
-    rpc  AckEvents(AckEventsRequest) returns (Empty){
+    rpc AckEvents(AckEventsRequest) returns (Empty){
         option (google.api.http) = {
             post: "/v1/events/ack"
             body: "*"
